@@ -64,11 +64,11 @@ public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapte
 
         CategoryData selectedCategory[] = new CategoryData[5];
 
-        selectedCategory[0]=(new CategoryData("Attraction",R.drawable.attractions_button));
-        selectedCategory[1]=(new CategoryData("Shopping",R.drawable.attractions_button));
-        selectedCategory[2]=(new CategoryData("Parks",R.drawable.attractions_button));
-        selectedCategory[3]=(new CategoryData("Food",R.drawable.attractions_button));
-        selectedCategory[4]=(new CategoryData("Favorites",R.drawable.attractions_button));
+        selectedCategory[0]=(new CategoryData("Attraction",R.drawable.attractions_active));
+        selectedCategory[1]=(new CategoryData("Shopping",R.drawable.shopping_active));
+        selectedCategory[2]=(new CategoryData("Parks",R.drawable.parks_active));
+        selectedCategory[3]=(new CategoryData("Food",R.drawable.food_active));
+        selectedCategory[4]=(new CategoryData("Favorites",R.drawable.favorites_active));
 
 
 
