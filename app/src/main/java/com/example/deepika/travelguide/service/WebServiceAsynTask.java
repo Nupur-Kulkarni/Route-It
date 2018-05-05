@@ -21,8 +21,8 @@ public class WebServiceAsynTask extends AsyncTask<String, Integer, String> {
     /**
      *
      * @param params : index=0 is URL, index=1 is method type GET/POST, and rest are key/value parameters
-     * @param delegate
-     * @param activity
+     * @param delegate: object of class that implements AsyncResponse interface
+     * @param activity:
      */
     public WebServiceAsynTask(String params[], AsyncResponse delegate, Context activity) {
         this.params = params;
@@ -48,7 +48,7 @@ public class WebServiceAsynTask extends AsyncTask<String, Integer, String> {
 
     /**
      *
-     * @param strings
+     * @param strings:
      * @return output as string from web service
      */
     @Override
@@ -60,6 +60,13 @@ public class WebServiceAsynTask extends AsyncTask<String, Integer, String> {
         HttpURLConnection client;
         String response = "";
         try {
+             /*replace code from line no 71 to 92 and use following code for foursquare recommendations end point
+
+            URL reurl = new URL("https://api.foursquare.com/v2/search/recommendations?ll=39.2904,-76.6122&client_id=VHQHDON5JD310HTPPEEMR0WY4FZQIK32QYP22R1NWMQTKU45&client_secret=BK5L0JPJ1M144E3DWX24L5DOZNXNPVOPLYGFCLL4QXQRIOSM&v=20140715&categoryId=4d4b7104d754a06370d81259");
+            client = (HttpURLConnection) reurl.openConnection();
+            client.setRequestMethod("GET");
+            client.setDoOutput(false);
+            */
 
             URL reurl = new URL(params[0]);
             client = (HttpURLConnection) reurl.openConnection();
@@ -77,14 +84,17 @@ public class WebServiceAsynTask extends AsyncTask<String, Integer, String> {
                     urlparamters.append(params[i] + "=" + params[i + 1] + "&");
                 }
             }
-            Log.d("URL called ", params[0] + "URL parameters" + urlparamters);
+
+            Log.d("URL called ", params[0] + " URL parameters" + urlparamters);
             OutputStream outputStream = new BufferedOutputStream(client.getOutputStream());
             outputStream.write(urlparamters.toString().getBytes());
             outputStream.flush();
             outputStream.close();
+
             StringBuilder sb = new StringBuilder();
             Log.d("Web Service", "message : " + sb.toString());
             int responseCode = client.getResponseCode();
+            Log.d("response", String.valueOf(responseCode));
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 String line;
                 BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
