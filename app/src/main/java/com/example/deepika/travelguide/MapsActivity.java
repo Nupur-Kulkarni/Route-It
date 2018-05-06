@@ -1,8 +1,9 @@
 package com.example.deepika.travelguide;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-
+import com.example.deepika.travelguide.activity.SelectCity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -21,11 +22,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        //Comment added by Kanchi.
-        //commiting a chang to test
         mapFragment.getMapAsync(this);
+        Intent intent=new Intent(getApplicationContext(),SelectCity.class);
+        startActivity(intent);
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //PolylineOptions rectLine = new PolylineOptions().width(15).color(getResources().getColor(R.color.magoo_user_base_color));
+
+    }
 
     /**
      * Manipulates the map once available.

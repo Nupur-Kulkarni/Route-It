@@ -3,4 +3,7 @@
     <string name="title_activity_maps">Map</string>
     <string name="resetFilteter">RESET FILTERS</string>
     <string name="applyFilter">APPLY FILTERS</string>
+    <string name="title_activity_select_city">SelectCity</string>
+    <string name="title_activity_start_location">StartLocation</string>
+    <string name="title_activity_venue_details_">VenueDetails_Activity</string>
 </resources>

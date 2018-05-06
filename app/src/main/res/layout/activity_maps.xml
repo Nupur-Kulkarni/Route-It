@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:orientation="vertical"
-android:layout_width="fill_parent"
-android:layout_height="fill_parent">
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -11,10 +11,10 @@ android:layout_height="fill_parent">
         android:layout_height="350dp"
         tools:context="com.example.deepika.travelguide.MapsActivity" />
 
-        <fragment android:name="com.example.deepika.travelguide.CategoriesFragment"
-            android:id="@+id/article_fragment"
-            android:layout_weight="2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp" />
+    <fragment android:name="com.example.deepika.travelguide.CategoriesFragment"
+        android:id="@+id/article_fragment"
+        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
 
 </LinearLayout>

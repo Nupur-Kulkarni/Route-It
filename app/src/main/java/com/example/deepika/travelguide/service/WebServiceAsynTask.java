@@ -68,10 +68,7 @@ public class WebServiceAsynTask extends AsyncTask<String, Integer, String> {
             client.setDoOutput(false);
             */
 
-            URL reurl = new URL(params[0]);
-            client = (HttpURLConnection) reurl.openConnection();
-            client.setRequestMethod(params[1]);
-            client.setDoOutput(true);
+            URL reurl;
             StringBuilder urlparamters = new StringBuilder();
 
             int numKeyValue = (params.length - 1);
@@ -84,13 +81,29 @@ public class WebServiceAsynTask extends AsyncTask<String, Integer, String> {
                     urlparamters.append(params[i] + "=" + params[i + 1] + "&");
                 }
             }
+            if(params[1] == "GET"){
+                if(urlparamters.toString().isEmpty()){
+                    reurl= new URL(params[0]);
+                }else {
+                    reurl = new URL(params[0] + "?" + urlparamters);
+                }
+                client = (HttpURLConnection) reurl.openConnection();
+                Log.d("URL called ", params[0]+"?"+urlparamters);
+                client.setRequestMethod(params[1]);
+                //client.setDoOutput(true);
+            }else {
+                reurl = new URL(params[0]);
+                client = (HttpURLConnection) reurl.openConnection();
+                client.setRequestMethod(params[1]);
+                client.setDoOutput(true);
 
-            Log.d("URL called ", params[0] + " URL parameters" + urlparamters);
-            OutputStream outputStream = new BufferedOutputStream(client.getOutputStream());
-            outputStream.write(urlparamters.toString().getBytes());
-            outputStream.flush();
-            outputStream.close();
 
+                Log.d("URL called ", params[0] + " URL parameters" + urlparamters);
+                OutputStream outputStream = new BufferedOutputStream(client.getOutputStream());
+                outputStream.write(urlparamters.toString().getBytes());
+                outputStream.flush();
+                outputStream.close();
+            }
             StringBuilder sb = new StringBuilder();
             Log.d("Web Service", "message : " + sb.toString());
             int responseCode = client.getResponseCode();
