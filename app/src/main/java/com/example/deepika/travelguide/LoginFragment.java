@@ -33,7 +33,7 @@ import static android.content.ContentValues.TAG;
 
 
 @SuppressLint("ValidFragment")
-class LoginFragment extends Fragment implements View.OnClickListener {
+public class LoginFragment extends Fragment implements View.OnClickListener {
     EditText useremail, pwd;
     ImageButton bt_login;
     String BASE_URL = "";
