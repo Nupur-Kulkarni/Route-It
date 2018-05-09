@@ -158,7 +158,7 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
                 }
                  tooltip_3 = new Tooltip.Builder(food).setText("Food").show();
 
-                foursquareActivity=new FoursquareAPIClass("4d4b7104d754a06370d81259",this);
+                foursquareActivity=new FoursquareAPIClass("4d4b7105d754a06374d81259",this);
                 foursquareActivity.callService();
                 tooltip_3.dismiss();
 

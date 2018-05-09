@@ -5,14 +5,14 @@
         <shape android:shape="rectangle">
             <stroke
                 android:width="2dp"
-                android:color="#FCF39A" />
+                android:color="#86195A" />
             <solid android:color="#ffffff" />
         </shape>
     </item>
 
     <item
-        android:bottom="2dp"
-        android:top="2dp">
+        android:bottom="3dp"
+        >
         <shape android:shape="rectangle">
             <stroke
                 android:width="2dp"
