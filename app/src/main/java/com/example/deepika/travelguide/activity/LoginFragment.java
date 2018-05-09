@@ -1,4 +1,4 @@
-package com.example.deepika.travelguide;
+package com.example.deepika.travelguide.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
@@ -14,6 +14,10 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.example.deepika.travelguide.R;
+import com.example.deepika.travelguide.activity.SelectCity;
+import com.example.deepika.travelguide.sessionManagement;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -93,9 +97,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             e.apply();
 
             //redirect to maps activity
-            Intent i = new Intent(getActivity().getApplicationContext(), MapsActivity.class);
-            i.putExtra("email", String.valueOf(useremail.getText()));
-            startActivity(i);
+            Intent intent=new Intent(getContext(),SelectCity.class);
+            intent.putExtra("email", String.valueOf(useremail.getText()));
+            startActivity(intent);
+
+            //startActivity(i);
         }
 
         @Override

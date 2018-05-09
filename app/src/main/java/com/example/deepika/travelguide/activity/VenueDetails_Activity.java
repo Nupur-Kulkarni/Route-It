@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
 
-import com.example.deepika.travelguide.FoursquareActivity;
 import com.example.deepika.travelguide.R;
 import com.example.deepika.travelguide.beans.FourSquareVenues;
 import com.example.deepika.travelguide.beans.VenueCategory;
@@ -43,7 +42,7 @@ public class VenueDetails_Activity extends Activity implements AsyncResponse{
         params[i++]="v";
         params[i++]="20140715";
 
-        WebServiceAsynTask task = new WebServiceAsynTask(params,this,VenueDetails_Activity.this);
+        WebServiceAsynTask task = new WebServiceAsynTask(params,this);
         task.execute(params);
     }
 

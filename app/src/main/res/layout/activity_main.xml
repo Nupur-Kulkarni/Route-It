@@ -11,7 +11,7 @@
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.deepika.travelguide.MainActivity">
+    tools:context="com.example.deepika.travelguide.activity.MainActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -82,7 +82,7 @@
 
         <fragment
             android:id="@+id/fragment_container"
-            android:name="com.example.deepika.travelguide.LoginFragment"
+            android:name="com.example.deepika.travelguide.activity.LoginFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"

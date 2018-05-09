@@ -16,7 +16,6 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.Toast;
 
-import com.example.deepika.travelguide.FoursquareActivity;
 import com.example.deepika.travelguide.R;
 import com.example.deepika.travelguide.autocomplete.AutoCompleteBean;
 import com.example.deepika.travelguide.autocomplete.PlaceAPI;
@@ -79,7 +78,7 @@ public class StartLocation extends AppCompatActivity implements AsyncResponse{
         String[] params=new String[2];
         params[0]=sb.toString();
         params[1]="GET";
-        WebServiceAsynTask webServiceAsynTask=new WebServiceAsynTask(params,this,this);
+        WebServiceAsynTask webServiceAsynTask=new WebServiceAsynTask(params,this);
         webServiceAsynTask.execute();
         //ArrayList<Double> resultList = null;
        /* HttpURLConnection conn = null;
@@ -146,7 +145,7 @@ public class StartLocation extends AppCompatActivity implements AsyncResponse{
             latlon = new ArrayList<Double>(2);
             latlon.add(jsonObjLocation.getDouble("lat"));
             latlon.add(jsonObjLocation.getDouble("lng"));
-            Intent i=new Intent(getApplicationContext(), FoursquareActivity.class);
+            Intent i=new Intent(getApplicationContext(), SelectCatagory.class);
             startActivity(i);
         } catch (JSONException e) {
             Log.e("start location", "Cannot process JSON results", e);

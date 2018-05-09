@@ -22,9 +22,9 @@ public class WebServiceAsynTask extends AsyncTask<String, Integer, String> {
      *
      * @param params : index=0 is URL, index=1 is method type GET/POST, and rest are key/value parameters
      * @param delegate: object of class that implements AsyncResponse interface
-     * @param activity:
+
      */
-    public WebServiceAsynTask(String params[], AsyncResponse delegate, Context activity) {
+    public WebServiceAsynTask(String params[], AsyncResponse delegate) {
         this.params = params;
         this.delegate=delegate;
     }

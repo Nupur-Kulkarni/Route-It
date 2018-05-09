@@ -1,4 +1,4 @@
-package com.example.deepika.travelguide;
+package com.example.deepika.travelguide.activity;
 
 import android.content.Context;
 import android.net.Uri;
@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.deepika.travelguide.beans.CategoryData;
+import com.example.deepika.travelguide.R;
 import com.example.deepika.travelguide.adapter.MyRecyclerViewAdapter;
 
 import java.util.List;

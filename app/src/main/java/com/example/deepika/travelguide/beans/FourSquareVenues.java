@@ -1,10 +1,14 @@
 package com.example.deepika.travelguide.beans;
 
+
+import java.util.ArrayList;
+
 /**
  * Created by deepi on 5/5/2018.
  */
 
 public class FourSquareVenues {
+
     private String id;
     private String name;
     private VenueLocation location;
@@ -12,6 +16,15 @@ public class FourSquareVenues {
     private String photoURL;
     private String description;
     private String hours_of_operation;
+    private String address;
+
+    public String get_Address() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public String getId() {
         return id;
@@ -79,6 +92,10 @@ public class FourSquareVenues {
                 ", photoURL='" + photoURL + '\'' +
                 '}';
     }
+
+
+
+
 }
 
 

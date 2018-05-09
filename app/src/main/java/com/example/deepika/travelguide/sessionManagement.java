@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+import com.example.deepika.travelguide.activity.LoginFragment;
+
 import java.util.HashMap;
 
 public class sessionManagement {
