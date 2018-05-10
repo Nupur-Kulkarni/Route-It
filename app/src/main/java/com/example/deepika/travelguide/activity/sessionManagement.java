@@ -1,4 +1,4 @@
-package com.example.deepika.travelguide;
+package com.example.deepika.travelguide.activity;
 
 import android.content.Context;
 import android.content.Intent;

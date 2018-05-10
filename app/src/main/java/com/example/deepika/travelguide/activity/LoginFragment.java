@@ -16,8 +16,6 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.deepika.travelguide.R;
-import com.example.deepika.travelguide.activity.SelectCity;
-import com.example.deepika.travelguide.sessionManagement;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -97,7 +95,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             e.apply();
 
             //redirect to maps activity
-            Intent intent=new Intent(getContext(),SelectCity.class);
+            Intent intent=new Intent(getActivity().getApplicationContext(),SelectCity.class);
             intent.putExtra("email", String.valueOf(useremail.getText()));
             startActivity(intent);
 

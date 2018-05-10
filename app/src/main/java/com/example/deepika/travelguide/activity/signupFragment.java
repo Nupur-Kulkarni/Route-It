@@ -1,20 +1,23 @@
-package com.example.deepika.travelguide;
+package com.example.deepika.travelguide.activity;
 
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.deepika.travelguide.activity.MainActivity;
+import com.example.deepika.travelguide.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,7 +34,7 @@ import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 
 public class signupFragment extends Fragment implements View.OnClickListener {
-    EditText UserText, emailText, passText;
+    EditText UserText, emailText, passText,confirmText;
     ImageButton registration_tbn;
     private static final String TAG = "registrationActivity";
     String BASE_URL = "";
@@ -44,9 +47,14 @@ public class signupFragment extends Fragment implements View.OnClickListener {
         View reg = inflater.inflate(R.layout.fragment_signup,container,false);
         BASE_URL = getString(R.string.baseUrl);
         UserText = (EditText) reg. findViewById(R.id.userText);
+        Drawable image = getResources().getDrawable(R.drawable.tan);
+        UserText.setCompoundDrawablesWithIntrinsicBounds(null, null, image, null);
         emailText = (EditText) reg.findViewById(R.id.emailText);
+
         passText = (EditText) reg.findViewById(R.id.passText);
-        registration_tbn = (ImageButton) reg.findViewById(R.id.s);
+        confirmText = (EditText)reg.findViewById(R.id.confirmText);
+
+        registration_tbn = (ImageButton) reg.findViewById(R.id.signupButton);
         registration_tbn.setOnClickListener(this);
         return  reg;
     }
@@ -56,6 +64,7 @@ public class signupFragment extends Fragment implements View.OnClickListener {
         final String full_name = UserText.getText().toString().trim().toLowerCase();
         final String password = passText.getText().toString().trim().toLowerCase();
         final String email = emailText.getText().toString().trim().toLowerCase();
+        final String confirmPass = confirmText.getText().toString().trim().toLowerCase();
         if (email.equalsIgnoreCase("")) {
             emailText.setError("Invalid Email");
         }
@@ -65,14 +74,17 @@ public class signupFragment extends Fragment implements View.OnClickListener {
         if (full_name.equalsIgnoreCase("")) {
             UserText.setError("Invalid Name");
         }
-        if (!email.equalsIgnoreCase("") && !password.equalsIgnoreCase("") && !full_name.equalsIgnoreCase("")) {
+        if (!email.equalsIgnoreCase("") && !password.equalsIgnoreCase("") && !full_name.equalsIgnoreCase("") && !confirmPass.equalsIgnoreCase("")) {
             Log.d(TAG, "registration successfully done");
+
             String[] input = new String[3];
             input[0] = email;
             input[1] = full_name;
             input[2] = password;
             RegisterUser registerTask = new RegisterUser();
             registerTask.execute(input);
+            Toast.makeText(getActivity().getApplicationContext(), "Registration successfully done.",
+                    Toast.LENGTH_SHORT).show();
         } else {
             Log.w(TAG, "registration failed");
             Toast.makeText(getActivity().getApplicationContext(), "Authentication failed.",
