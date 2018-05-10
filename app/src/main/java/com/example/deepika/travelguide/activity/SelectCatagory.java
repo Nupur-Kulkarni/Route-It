@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.example.deepika.travelguide.R;
 import com.example.deepika.travelguide.beans.FourSquareVenues;
 import com.example.deepika.travelguide.beans.FoursquareAPIClass;
-import com.example.deepika.travelguide.service.ServiceResponse;
 import com.tooltip.Tooltip;
 
 import java.util.ArrayList;
