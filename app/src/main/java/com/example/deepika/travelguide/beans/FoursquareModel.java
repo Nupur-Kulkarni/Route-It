@@ -1,7 +1,9 @@
-package com.example.deepika.travelguide;
+package com.example.deepika.travelguide.beans;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.deepika.travelguide.R;
 
 public class FoursquareModel extends AppCompatActivity {
 

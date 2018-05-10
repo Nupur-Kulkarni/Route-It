@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/Selectcity_txt"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#67225C"
+        android:text="Select Your City"
+        android:textColor="#fff"
+        android:textAlignment="center"
+        android:padding="12pt"/>
+
+    <ImageButton
+        android:id="@+id/Baltimore"
+        android:layout_width="match_parent"
+        android:scaleType="centerCrop"
+        android:layout_height="80dp"
+        android:layout_marginTop="40dp"
+        android:layout_alignRight="@+id/Baltimore"
+        android:src="@drawable/baltimore"
+        android:padding="0pt"/>
+
+    <ImageButton
+        android:id="@+id/WashingtonDC"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/dc"
+        android:padding="0pt"/>
+
+
+
+    <ImageButton
+        android:id="@+id/NewYork"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="40dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/newyork"
+        android:padding="0pt"/>
+
+    <ImageButton
+        android:id="@+id/LasVegas"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="40dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/vegas"
+        android:padding="0pt"/>
+
+
+</LinearLayout>

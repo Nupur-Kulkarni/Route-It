@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#86195A"
+    tools:context="com.example.deepika.travelguide.activity.SelectCatagory"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/Select_catagory_txt"
+        android:layout_width="match_parent"
+        android:layout_height="102dp"
+        android:background="#86195A"
+        android:gravity="center"
+        android:text="Select a Catagory"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="#ffffff" />
+
+
+    <Button
+        android:id="@+id/attraction"
+        android:layout_width="match_parent"
+        android:layout_height="71dp"
+        android:background="@drawable/button_stroke"
+        android:drawableLeft="@drawable/attraction"
+        android:text="Attractions"
+        android:gravity="left|center_vertical"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:drawablePadding="30dp"
+        android:textColor="#86195A" />
+
+    <Button
+        android:id="@+id/shopping"
+        android:textAllCaps="false"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:textColor="#86195A"
+        android:gravity="left|center_vertical"
+        android:background="@drawable/button_stroke"
+        android:drawableLeft="@drawable/shopping"
+        android:drawablePadding="30dp"
+        android:text="Shopping" />
+
+    <Button
+        android:id="@+id/parks"
+        android:layout_width="match_parent"
+        android:layout_height="79dp"
+        android:background="@drawable/button_stroke"
+        android:drawableLeft="@drawable/park"
+        android:drawablePadding="30dp"
+        android:gravity="left|center_vertical"
+        android:text="Parks"
+        android:width="40dp"
+        android:height="40dp"
+        android:textAllCaps="false"
+        android:textColor="#86195A" />
+
+    <Button
+        android:id="@+id/food"
+        android:textAllCaps="false"
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:background="@drawable/button_stroke"
+        android:textColor="#86195A"
+        android:drawablePadding="30dp"
+        android:gravity="left|center_vertical"
+
+        android:drawableLeft="@drawable/drawable_left"
+
+        android:text=" Food" />
+
+    <Button
+        android:id="@+id/fav"
+        android:textAllCaps="false"
+        android:layout_width="match_parent"
+        android:layout_height="82dp"
+        android:textColor="#86195A"
+
+        android:gravity="left|center_vertical"
+
+        android:background="@drawable/button_stroke"
+        android:drawableLeft="@drawable/fav"
+        android:drawablePadding="30dp"
+        android:text="Favourites" />
+
+
+
+</LinearLayout>

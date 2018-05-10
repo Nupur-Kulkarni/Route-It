@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+
+    tools:context="com.example.deepika.travelguide.activity.SelectCatagory"
+    android:orientation="vertical">
+
+
+
+  <TextView
+      android:id="@+id/txt"
+      android:layout_width="match_parent"
+      android:layout_height="102dp"
+      android:background="#86195A"
+      android:gravity="center"
+      android:text="Select a Category"
+      android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+      android:textColor="#ffffff" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/button_stroke"
+
+
+        >
+
+        <ImageButton
+            android:id="@+id/attraction"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_margin="10dp"
+            android:background="#ffffff"
+            android:scaleType="fitXY"
+
+            android:src="@drawable/attraction" />
+
+
+        <ImageButton
+            android:id="@+id/shopping"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_margin="10dp"
+            android:background="#ffffff"
+            android:scaleType="fitXY"
+            android:src="@drawable/shopping" />
+
+        <ImageButton
+            android:id="@+id/parks"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_margin="10dp"
+            android:background="#ffffff"
+            android:scaleType="fitXY"
+            android:src="@drawable/park" />
+
+        <ImageButton
+            android:id="@+id/food"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_margin="10dp"
+            android:background="#ffffff"
+            android:scaleType="fitXY"
+
+            android:src="@drawable/drawable_left" />
+
+
+    </LinearLayout>
+  <FrameLayout
+      android:id="@+id/frag"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+
+  </FrameLayout>
+
+
+
+
+
+</LinearLayout>

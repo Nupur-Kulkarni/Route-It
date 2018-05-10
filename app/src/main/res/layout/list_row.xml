@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="120dp"
+
+    android:orientation="horizontal"
+     >
+
+    <!--  ListRow Left sied Thumbnail image -->
+    <LinearLayout android:id="@+id/thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentLeft="true"
+
+        android:layout_marginRight="5dip"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+
+
+    <ImageView
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:id="@+id/list_image"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_alignLeft="@+id/thumbnail"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/thumbnail" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/artist"
+            android:layout_toRightOf="@+id/artist"
+            android:textColor="#86195A"
+            android:paddingRight="10dp"
+            android:text="5656656"
+            android:paddingLeft="2dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <TextView
+        android:id="@+id/addr"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#86195A"
+        android:paddingLeft="2dp"
+        android:layout_alignTop="@+id/tit"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+    </LinearLayout>
+
+</LinearLayout>

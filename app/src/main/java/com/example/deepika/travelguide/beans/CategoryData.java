@@ -1,4 +1,4 @@
-package com.example.deepika.travelguide;
+package com.example.deepika.travelguide.beans;
 
 public class CategoryData {
 
@@ -6,7 +6,7 @@ public class CategoryData {
     private int imageUrl;
     private boolean isSelected=false;
 
-    CategoryData(String title, int imageUrl){
+    public CategoryData(String title, int imageUrl){
 
         this.title = title;
         this.imageUrl = imageUrl;
