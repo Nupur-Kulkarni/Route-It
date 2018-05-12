@@ -9,12 +9,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.deepika.travelguide.PathGoogleMapActivity;
 import com.example.deepika.travelguide.R;
 import com.example.deepika.travelguide.beans.FourSquareVenues;
 import com.example.deepika.travelguide.beans.FoursquareAPIClass;
@@ -22,18 +23,23 @@ import com.example.deepika.travelguide.service.ServiceResponse;
 import com.tooltip.Tooltip;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
-public class SelectCatagory extends AppCompatActivity  implements View.OnClickListener, ServiceResponse {
+public class SelectCatagory extends AppCompatActivity  implements View.OnClickListener, ServiceResponse, ListData {
     ImageButton shopping, parks, food, fav;
     ImageButton attraction;
     Tooltip tooltip_,tooltip_2,tooltip_3,tooltip_1;
-    Button mapactivity;
+    String category = null;
+    HashMap<String, HashSet<FourSquareVenues>> map = new HashMap<>();
 
-
+    @Override
     public void getResponse(ArrayList<FourSquareVenues> venues) {
         Bundle bn=new Bundle();
         bn.putSerializable("Places",venues);
-        PlaceDisplayFragment fragment = new PlaceDisplayFragment();
+        HashSet<FourSquareVenues> set = map.get(category);
+        PlaceDisplayFragment fragment = new PlaceDisplayFragment(category,SelectCatagory.this,set);
         fragment.setArguments(bn);
         FragmentManager fragmentManager = getSupportFragmentManager();
         if(fragmentManager!=null)
@@ -41,7 +47,34 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.replace(R.id.frag,fragment);
             transaction.commit();
+
         }
+    }
+
+    @Override
+    public void getData(FourSquareVenues place) {
+
+        Log.d("Place", String.valueOf(place));
+        HashSet<FourSquareVenues> set = new HashSet<>();
+        Log.d("category",category);
+        if(map.containsKey(category)){
+            set=map.get(category);
+            if(set.contains(place)){
+                Log.d("set","object in set");
+            }
+            else {
+
+                set.add(place);
+                map.put(category,set);
+                Log.d("set contains 12", String.valueOf(set));
+            }
+        }
+        else{
+            set.add(place);
+            map.put(category,set);
+            Log.d("set contains", String.valueOf(set));
+        }
+        Log.d("hashmap", String.valueOf(map));
     }
 
     @Override
@@ -53,18 +86,18 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
                 "font/irmatextroundstdmedium.otf");
         TextView tv = (TextView) findViewById(R.id.txt);
         tv.setTypeface(tf);
+
+        //listView = (ListView) findViewById(R.id.listV);
         attraction = (ImageButton) findViewById(R.id.attraction);
         shopping = (ImageButton) findViewById(R.id.shopping);
 
         parks = (ImageButton) findViewById(R.id.parks);
         food = (ImageButton) findViewById(R.id.food);
 
-        mapactivity = (Button) findViewById(R.id.button3);
         attraction.setOnClickListener(this);
         shopping.setOnClickListener(this);
         parks.setOnClickListener(this);
         food.setOnClickListener(this);
-        mapactivity.setOnClickListener(this);
 
 
     }
@@ -96,6 +129,7 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
                 food.setImageResource(R.drawable.food_button);
 
                 foursquareActivity=new FoursquareAPIClass("4d4b7104d754a06370d81259",this);
+                category="attraction";
                 foursquareActivity.callService();
 
 
@@ -121,6 +155,7 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
                  tooltip_1 = new Tooltip.Builder(shopping).setText("Shopping").show();
 
                 foursquareActivity=new FoursquareAPIClass("4d4b7104d754a06370d81259",this);
+                category="shopping";
                 foursquareActivity.callService();
                 tooltip_1.dismiss();
 
@@ -142,6 +177,7 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
                  tooltip_2 = new Tooltip.Builder(parks).setText("Parks").show();
 
                 foursquareActivity=new FoursquareAPIClass("4d4b7104d754a06370d81259",this);
+                category="parks";
                 foursquareActivity.callService();
                 tooltip_2.dismiss();
 
@@ -163,17 +199,16 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
                  tooltip_3 = new Tooltip.Builder(food).setText("Food").show();
 
                 foursquareActivity=new FoursquareAPIClass("4d4b7105d754a06374d81259",this);
+                category="food";
                 foursquareActivity.callService();
                 tooltip_3.dismiss();
 
                 break;
 
-            case R.id.button3:
-                Intent intent1 = new Intent(getApplicationContext(),PathGoogleMapActivity.class);
-                startActivity(intent1);
-
 
         }
     }
+
+
 }
 

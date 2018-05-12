@@ -17,6 +17,15 @@ public class FourSquareVenues {
     private String description;
     private String hours_of_operation;
     private String address;
+    private boolean selected;
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
 
     public String get_Address() {
         return address;
@@ -80,6 +89,24 @@ public class FourSquareVenues {
 
     public void setHours_of_operation(String hours_of_operation) {
         this.hours_of_operation = hours_of_operation;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        FourSquareVenues venues = (FourSquareVenues) obj;
+        if(obj != null && obj instanceof FourSquareVenues){
+            String id = venues.getId();
+            if(id != null && id.equals(this.getId()))
+                return true;
+        }
+
+        return false;
+        //return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.id.hashCode();
     }
 
     @Override
