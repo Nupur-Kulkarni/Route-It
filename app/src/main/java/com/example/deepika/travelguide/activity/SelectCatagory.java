@@ -52,27 +52,31 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
     }
 
     @Override
-    public void getData(FourSquareVenues place) {
-
-        Log.d("Place", String.valueOf(place));
+    public void getData(FourSquareVenues place, boolean checked) {
         HashSet<FourSquareVenues> set = new HashSet<>();
-        Log.d("category",category);
-        if(map.containsKey(category)){
-            set=map.get(category);
-            if(set.contains(place)){
-                Log.d("set","object in set");
-            }
-            else {
+        if(checked) {
+            Log.d("Place", String.valueOf(place));
 
+            Log.d("category", category);
+            if (map.containsKey(category)) {
+                set = map.get(category);
+                if (set.contains(place)) {
+                    Log.d("set", "object in set");
+                } else {
+
+                    set.add(place);
+                    map.put(category, set);
+                    Log.d("set contains 12", String.valueOf(set));
+                }
+            } else {
                 set.add(place);
-                map.put(category,set);
-                Log.d("set contains 12", String.valueOf(set));
+                map.put(category, set);
+                Log.d("set contains", String.valueOf(set));
             }
         }
         else{
-            set.add(place);
-            map.put(category,set);
-            Log.d("set contains", String.valueOf(set));
+            map.get(category).remove(place);
+            Log.d("remove","place removed from set");
         }
         Log.d("hashmap", String.valueOf(map));
     }
