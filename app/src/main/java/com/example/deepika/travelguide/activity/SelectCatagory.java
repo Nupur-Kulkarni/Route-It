@@ -99,9 +99,11 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
         parks.setOnClickListener(this);
         food.setOnClickListener(this);
 
-
     }
 
+    void onButtonClick(){
+        Log.d("click","method called on click");
+    }
     @TargetApi(Build.VERSION_CODES.O)
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -131,9 +133,6 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
                 foursquareActivity=new FoursquareAPIClass("4d4b7104d754a06370d81259",this);
                 category="attraction";
                 foursquareActivity.callService();
-
-
-
 
                 break;
             case R.id.shopping:
@@ -205,10 +204,8 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
 
                 break;
 
-
         }
     }
-
 
 }
 

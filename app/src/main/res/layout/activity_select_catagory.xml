@@ -29,7 +29,8 @@
             android:layout_alignParentTop="true"
             android:text="Map"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="#86195A" />
+            android:textColor="#86195A"
+            tools:onClick="onButtonClick" />
 
     </RelativeLayout>
 
