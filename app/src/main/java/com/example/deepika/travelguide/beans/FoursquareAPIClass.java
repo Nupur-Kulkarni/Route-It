@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.ListView;
 
 import com.example.deepika.travelguide.service.AsyncResponse;
+import com.example.deepika.travelguide.service.ServiceResponse;
 import com.example.deepika.travelguide.service.WebServiceAsynTask;
 
 import org.json.JSONArray;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 public class FoursquareAPIClass implements AsyncResponse{
 
     private String categoryid="4d4b7104d754a06370d81259";
+
+
     private ServiceResponse class_that_called_this_API=null;
     public FoursquareAPIClass(String categoryid, ServiceResponse serviceResponse){
         this.categoryid=categoryid;

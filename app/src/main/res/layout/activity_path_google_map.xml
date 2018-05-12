@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.deepika.travelguide.PathGoogleMapActivity"
+    android:orientation="vertical">
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/mytext2"
+            style="@style/AlertDialog.AppCompat"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:background="@color/colorPurple"
+            android:inputType="none"
+            android:text="Starting point"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:background="@color/colorPurple"
+            android:text="Prev"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:visibility="visible">
+
+        </Button>
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:layout_marginLeft="300dp"
+            android:background="@color/colorPurple"
+            android:text="Next"
+            android:textColor="@color/common_google_signin_btn_text_dark_default">
+
+        </Button>
+
+    </RelativeLayout>
+    <fragment
+        android:id="@+id/map"
+        class="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="425dp" />
+
+</LinearLayout>

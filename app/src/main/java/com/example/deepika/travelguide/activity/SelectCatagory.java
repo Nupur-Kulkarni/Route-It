@@ -10,12 +10,15 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.deepika.travelguide.PathGoogleMapActivity;
 import com.example.deepika.travelguide.R;
 import com.example.deepika.travelguide.beans.FourSquareVenues;
 import com.example.deepika.travelguide.beans.FoursquareAPIClass;
+import com.example.deepika.travelguide.service.ServiceResponse;
 import com.tooltip.Tooltip;
 
 import java.util.ArrayList;
@@ -24,9 +27,9 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
     ImageButton shopping, parks, food, fav;
     ImageButton attraction;
     Tooltip tooltip_,tooltip_2,tooltip_3,tooltip_1;
+    Button mapactivity;
 
 
-    @Override
     public void getResponse(ArrayList<FourSquareVenues> venues) {
         Bundle bn=new Bundle();
         bn.putSerializable("Places",venues);
@@ -56,10 +59,12 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
         parks = (ImageButton) findViewById(R.id.parks);
         food = (ImageButton) findViewById(R.id.food);
 
+        mapactivity = (Button) findViewById(R.id.button3);
         attraction.setOnClickListener(this);
         shopping.setOnClickListener(this);
         parks.setOnClickListener(this);
         food.setOnClickListener(this);
+        mapactivity.setOnClickListener(this);
 
 
     }
@@ -162,6 +167,10 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
                 tooltip_3.dismiss();
 
                 break;
+
+            case R.id.button3:
+                Intent intent1 = new Intent(getApplicationContext(),PathGoogleMapActivity.class);
+                startActivity(intent1);
 
 
         }

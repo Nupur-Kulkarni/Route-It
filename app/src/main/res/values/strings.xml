@@ -7,4 +7,5 @@
     <string name="title_activity_start_location">StartLocation</string>
     <string name="title_activity_venue_details_">VenueDetails_Activity</string>
     <string name="baseUrl">http://10.200.52.214/finder/</string>
+    <string name="title_activity_path_google_map">Map</string>
 </resources>
