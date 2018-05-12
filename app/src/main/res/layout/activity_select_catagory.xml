@@ -9,12 +9,28 @@
     tools:context="com.example.deepika.travelguide.activity.SelectCatagory"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
+        <TextView
+            android:layout_width="304dp"
+            android:layout_height="40dp"
+            android:background="#86195A"
+            tools:paddingTop="0dp" />
 
-  <TextView
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Map" />
+
+    </LinearLayout>
+
+    <TextView
       android:id="@+id/txt"
       android:layout_width="match_parent"
-      android:layout_height="102dp"
+      android:layout_height="50dp"
       android:background="#86195A"
       android:gravity="center"
       android:text="Select a Category"
