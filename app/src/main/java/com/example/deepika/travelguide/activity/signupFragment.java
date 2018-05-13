@@ -47,8 +47,6 @@ public class signupFragment extends Fragment implements View.OnClickListener {
         View reg = inflater.inflate(R.layout.fragment_signup,container,false);
         BASE_URL = getString(R.string.baseUrl);
         UserText = (EditText) reg. findViewById(R.id.userText);
-        Drawable image = getResources().getDrawable(R.drawable.tan);
-        UserText.setCompoundDrawablesWithIntrinsicBounds(null, null, image, null);
         emailText = (EditText) reg.findViewById(R.id.emailText);
 
         passText = (EditText) reg.findViewById(R.id.passText);

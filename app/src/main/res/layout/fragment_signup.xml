@@ -20,6 +20,22 @@
         tools:ignore="UselessParent"
         android:layout_alignParentLeft="true">
 
+        <EditText
+            android:id="@+id/userText"
+            style="@android:style/Widget.Holo.Light.AutoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="227dp"
+            android:ems="10"
+            android:background="@drawable/tan_small"
+            android:padding="4dp"
+            android:hint="Username/Fullname"
+            android:textColor="#86195A"
+            android:textColorHint="#86195A"
+            tools:ignore="HardcodedText" />
 
         <EditText
             android:id="@+id/emailText"
@@ -28,10 +44,13 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="55dp"
+            android:layout_marginTop="65dp"
             android:ems="10"
-
+            android:background="@drawable/tan_small"
+            android:paddingBottom="4dp"
             android:hint="Email"
+            android:textColor="#86195A"
+            android:textColorHint="#86195A"
             tools:ignore="HardcodedText,TextFields" />
 
         <EditText
@@ -40,7 +59,12 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:ems="10"
+            android:background="@drawable/tan_small"
+            android:layout_marginBottom="65dp"
+            android:paddingBottom="4dp"
             android:hint="Password"
+            android:textColor="#86195A"
+            android:textColorHint="#86195A"
             tools:ignore="HardcodedText,UnknownId" />
 
         <EditText
@@ -50,35 +74,29 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="56dp"
+            android:layout_marginBottom="65dp"
             android:ems="10"
+            android:background="@drawable/tan_small"
+            android:paddingBottom="4dp"
             android:hint="Confirm Password"
+            android:textColor="#86195A"
+            android:textColorHint="#86195A"
             android:inputType="textPersonName"
             tools:ignore="HardcodedText" />
 
         <ImageButton
             android:id="@+id/signupButton"
             android:layout_width="375dp"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="65dp"
             android:background="#86195A"
-            android:src="@drawable/ic_forward_black_24dp" />
+            android:src="@drawable/arrowsmallwhite" />
 
 
     </RelativeLayout>
 
-    <EditText
-        android:id="@+id/userText"
-        style="@android:style/Widget.Holo.Light.AutoCompleteTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="213dp"
-        android:ems="10"
-        android:hint="Username/Fullname"
-        tools:ignore="HardcodedText" />
+
 
 </RelativeLayout>
