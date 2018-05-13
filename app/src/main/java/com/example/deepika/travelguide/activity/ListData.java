@@ -7,6 +7,6 @@ import com.example.deepika.travelguide.beans.FourSquareVenues;
  */
 
 public interface ListData {
-    void getData (FourSquareVenues fourSquareVenues);
+    void getData (FourSquareVenues fourSquareVenues, boolean checked);
 
 }

@@ -85,7 +85,7 @@ public class PlaceDisplayFragment extends Fragment {
 
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                        listData.getData(place.get(position));
+                        listData.getData(place.get(position),true);
                 }
         });
         return view;
@@ -140,7 +140,8 @@ class customAdaptor extends  ArrayAdapter<FourSquareVenues> {   //custom adapter
                     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
                         FourSquareVenues place = (FourSquareVenues) viewHolder.checkBox.getTag();
-                        listData.getData(place);
+                        listData.getData(place,compoundButton.isChecked());
+
                         //place.setSelected(tickedAlready);
 
 
