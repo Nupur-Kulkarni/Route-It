@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -33,11 +34,60 @@ import java.util.Set;
 public class SelectCatagory extends AppCompatActivity  implements View.OnClickListener, ServiceResponse, ListData {
     ImageButton shopping, parks, food, fav;
     ImageButton attraction;
-    Button mybutton;
-    Tooltip tooltip_,tooltip_2,tooltip_3,tooltip_1;
+    Tooltip tooltip_, tooltip_2, tooltip_3, tooltip_1;
     String category = null;
+    Button mymapbutton;
     HashMap<String, HashSet<FourSquareVenues>> map = new HashMap<>();
-    FoursquareAPIClass foursquareActivity=null,foursquareActivity1=null;
+    Handler handler = new Handler();
+    FoursquareAPIClass foursquareActivity=null, foursquareActivity1=null;
+    public class  M2Update implements Runnable {
+        private String category;
+        public M2Update(String category1) {
+
+            category = category1;
+        }
+
+        @Override
+        public void run() {
+            switch (category) {
+                case "attraction":
+
+
+
+                    attraction.setImageResource(R.drawable.attractions_active);
+                    shopping.setImageResource(R.drawable.shopping_button);
+                    parks.setImageResource(R.drawable.parks_button);
+                    food.setImageResource(R.drawable.food_button);
+                    break;
+                case "shopping":
+                    attraction.setImageResource(R.drawable.attraction);
+                    shopping.setImageResource(R.drawable.shopping_active);
+                    parks.setImageResource(R.drawable.parks_button);
+                    food.setImageResource(R.drawable.food_button);
+
+                    break;
+                case "parks":
+                    attraction.setImageResource(R.drawable.attractions_button);
+                    shopping.setImageResource(R.drawable.shopping_button);
+                    parks.setImageResource(R.drawable.parks_active);
+                    food.setImageResource(R.drawable.food_button);
+
+
+                    break;
+                case "food":
+                    attraction.setImageResource(R.drawable.attractions_button);
+                    shopping.setImageResource(R.drawable.shopping_button);
+                    parks.setImageResource(R.drawable.parks_button);
+                    food.setImageResource(R.drawable.food_active);
+
+                    break;
+
+
+            }
+        }
+
+    }
+
 
     @Override
     public void getResponse(ArrayList<FourSquareVenues> venues) {
@@ -62,7 +112,7 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
         if(checked) {
             Log.d("Place", String.valueOf(place));
 
-            Log.d("category", category);
+            Log.d("category", String.valueOf(category));
             if (map.containsKey(category)) {
                 set = map.get(category);
                 if (set.contains(place)) {
@@ -93,9 +143,20 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
 
         Typeface tf = Typeface.createFromAsset(getAssets(),
                 "font/irmatextroundstdmedium.otf");
+        Typeface tfb =Typeface.createFromAsset(getAssets(),
+                "font/irmatextroundstdbold.otf");
         TextView tv = (TextView) findViewById(R.id.txt);
         tv.setTypeface(tf);
-
+        TextView attraction_txtView = (TextView)findViewById(R.id.attraction_txt);
+        attraction_txtView.setTypeface(tfb);
+        TextView shopping_txtView = (TextView)findViewById(R.id.shopping_txt);
+        shopping_txtView.setTypeface(tfb);
+        TextView parks_textView = (TextView)findViewById(R.id.parks_txt);
+        parks_textView.setTypeface(tfb);
+        TextView food_txtView = (TextView)findViewById(R.id.food_txt);
+        food_txtView.setTypeface(tfb);
+        mymapbutton = (Button) findViewById(R.id.myMapbutton);
+        mymapbutton.setOnClickListener(this);
         //listView = (ListView) findViewById(R.id.listV);
         attraction = (ImageButton) findViewById(R.id.attraction);
         shopping = (ImageButton) findViewById(R.id.shopping);
@@ -103,14 +164,12 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
         parks = (ImageButton) findViewById(R.id.parks);
         food = (ImageButton) findViewById(R.id.food);
 
-        mybutton = (Button) findViewById(R.id.mymapbutton);
-
         attraction.setOnClickListener(this);
         shopping.setOnClickListener(this);
         parks.setOnClickListener(this);
         food.setOnClickListener(this);
-        mybutton.setOnClickListener(this);
-
+        M2Update m2UpdateUI = new M2Update("attraction");
+        handler.post(m2UpdateUI);
         foursquareActivity1=new FoursquareAPIClass("4d4b7104d754a06370d81259",this);
         category="attraction";
         foursquareActivity1.callService();
@@ -129,106 +188,55 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
         switch (view.getId()) {
             case R.id.attraction:
 
-                if(tooltip_1 != null) {
-                    tooltip_1.dismiss();
-                }
-                if(tooltip_2 != null) {
-                    tooltip_2.dismiss();
-                }
-                if(tooltip_3 != null) {
-                    tooltip_3.dismiss();
-                }
-                tooltip_ = new Tooltip.Builder(attraction).setText("Attraction").show();
 
-
-                attraction.setImageResource(R.drawable.attractions_active);
-                shopping.setImageResource(R.drawable.shopping_button);
-                parks.setImageResource(R.drawable.parks_button);
-                food.setImageResource(R.drawable.food_button);
-
+                M2Update m2UpdateUI = new M2Update("attraction");
+                handler.post(m2UpdateUI);
                 foursquareActivity=new FoursquareAPIClass("4d4b7104d754a06370d81259",this);
                 category="attraction";
                 foursquareActivity.callService();
 
+
+
+
                 break;
             case R.id.shopping:
-                attraction.setImageResource(R.drawable.attraction);
-                shopping.setImageResource(R.drawable.shopping_active);
-                parks.setImageResource(R.drawable.parks_button);
-                food.setImageResource(R.drawable.food_button);
-                if(tooltip_ != null) {
-                    tooltip_.dismiss();
-                }
-                if(tooltip_2 != null) {
-                    tooltip_2.dismiss();
-                }
-                if(tooltip_3 != null) {
-                    tooltip_3.dismiss();
-                }
-
-
-                tooltip_1 = new Tooltip.Builder(shopping).setText("Shopping").show();
-
+                M2Update m2UpdateUI1 = new M2Update("shopping");
+                handler.post(m2UpdateUI1);
                 foursquareActivity=new FoursquareAPIClass("4d4b7104d754a06370d81259",this);
                 category="shopping";
                 foursquareActivity.callService();
-                tooltip_1.dismiss();
+
 
                 break;
             case R.id.parks:
-                attraction.setImageResource(R.drawable.attractions_button);
-                shopping.setImageResource(R.drawable.shopping_button);
-                parks.setImageResource(R.drawable.parks_active);
-                food.setImageResource(R.drawable.food_button);
-                if(tooltip_ != null) {
-                    tooltip_.dismiss();
-                }
-                if(tooltip_1 != null) {
-                    tooltip_1.dismiss();
-                }
-                if(tooltip_3 != null) {
-                    tooltip_3.dismiss();
-                }
-                tooltip_2 = new Tooltip.Builder(parks).setText("Parks").show();
+                M2Update m2UpdateUI2 = new M2Update("parks");
+                handler.post(m2UpdateUI2);
 
                 foursquareActivity=new FoursquareAPIClass("4d4b7104d754a06370d81259",this);
-                category="parks";
+                category="parka";
                 foursquareActivity.callService();
-                tooltip_2.dismiss();
+
 
                 break;
             case R.id.food:
-                attraction.setImageResource(R.drawable.attractions_button);
-                shopping.setImageResource(R.drawable.shopping_button);
-                parks.setImageResource(R.drawable.parks_button);
-                food.setImageResource(R.drawable.food_active);
-                if(tooltip_ != null) {
-                    tooltip_.dismiss();
-                }
-                if(tooltip_1 != null) {
-                    tooltip_1.dismiss();
-                }
-                if(tooltip_2 != null) {
-                    tooltip_2.dismiss();
-                }
-                tooltip_3 = new Tooltip.Builder(food).setText("Food").show();
 
-                foursquareActivity=new FoursquareAPIClass("4d4b7105d754a06374d81259",this);
+                M2Update m2UpdateUI3 = new M2Update("food");
+                handler.post(m2UpdateUI3);
                 category="food";
+                foursquareActivity=new FoursquareAPIClass("4d4b7105d754a06374d81259",this);
                 foursquareActivity.callService();
-                tooltip_3.dismiss();
+
 
                 break;
-
-            case R.id.mymapbutton:
+            case R.id.myMapbutton:
                 Intent intent1 = new Intent(getApplicationContext(),PathGoogleMapActivity.class);
                 intent1.putExtra("map", (Serializable) map);
                 startActivity(intent1);
+                break;
 
 
         }
     }
-
 
 }
 

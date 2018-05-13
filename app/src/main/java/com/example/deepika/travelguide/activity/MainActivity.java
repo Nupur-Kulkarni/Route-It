@@ -1,6 +1,8 @@
 package com.example.deepika.travelguide.activity;
 
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         signup_btn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
             @Override
             public void onClick(View v) {
                 fr = new LoginFragment();
@@ -58,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         login_btn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
             @Override
             public void onClick(View v) {
 

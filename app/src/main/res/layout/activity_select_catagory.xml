@@ -22,7 +22,7 @@
             />
 
         <Button
-            android:id="@+id/mymapbutton"
+            android:id="@+id/myMapbutton"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
@@ -36,74 +36,125 @@
     </RelativeLayout>
 
     <TextView
-      android:id="@+id/txt"
-      android:layout_width="match_parent"
-      android:layout_height="40dp"
-      android:background="#86195A"
-      android:gravity="center"
-      android:text="Select a Category"
-      android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-      android:textColor="#ffffff" />
+        android:id="@+id/txt"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#86195A"
+        android:gravity="center"
+        android:text="Select a Category"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="#ffffff" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_stroke"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:background="@drawable/button_stroke"
 
 
         >
 
-        <ImageButton
-            android:id="@+id/attraction"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_margin="10dp"
-            android:background="#ffffff"
-            android:scaleType="fitXY"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="5dp">
 
-            android:src="@drawable/attraction" />
+            <ImageButton
+                android:id="@+id/attraction"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_margin="10dp"
+                android:background="#ffffff"
+                android:scaleType="fitXY"
+
+                android:src="@drawable/attraction" />
+            <TextView
+                android:id="@+id/attraction_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Attraction" />
 
 
-        <ImageButton
-            android:id="@+id/shopping"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_margin="10dp"
-            android:background="#ffffff"
-            android:scaleType="fitXY"
-            android:src="@drawable/shopping" />
+        </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/parks"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_margin="10dp"
-            android:background="#ffffff"
-            android:scaleType="fitXY"
-            android:src="@drawable/park" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="5dp">
 
-        <ImageButton
-            android:id="@+id/food"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_margin="10dp"
-            android:background="#ffffff"
-            android:scaleType="fitXY"
+            <ImageButton
+                android:id="@+id/shopping"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_margin="10dp"
+                android:background="#ffffff"
+                android:scaleType="fitXY"
+                android:src="@drawable/shopping" />
 
-            android:src="@drawable/drawable_left" />
+            <TextView
+                android:id="@+id/shopping_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Shopping" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="5dp">
+
+            <ImageButton
+                android:id="@+id/parks"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_margin="10dp"
+                android:background="#ffffff"
+                android:scaleType="fitXY"
+                android:src="@drawable/park" />
+            <TextView
+                android:id="@+id/parks_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Parks" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="5dp">
+            <ImageButton
+                android:id="@+id/food"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_margin="10dp"
+                android:background="#ffffff"
+                android:scaleType="fitXY"
+
+                android:src="@drawable/drawable_left" />
+            <TextView
+                android:id="@+id/food_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Food" />
+        </LinearLayout>
 
 
     </LinearLayout>
-  <FrameLayout
-      android:id="@+id/frag"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+    <FrameLayout
+        android:id="@+id/frag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
 
-  </FrameLayout>
+    </FrameLayout>
 
 
 
