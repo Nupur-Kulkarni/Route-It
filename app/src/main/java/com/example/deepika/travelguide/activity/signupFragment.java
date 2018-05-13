@@ -3,6 +3,7 @@ package com.example.deepika.travelguide.activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
@@ -46,12 +47,16 @@ public class signupFragment extends Fragment implements View.OnClickListener {
 
         View reg = inflater.inflate(R.layout.fragment_signup,container,false);
         BASE_URL = getString(R.string.baseUrl);
+        Typeface font = Typeface.createFromAsset(getActivity().getAssets(),"font/irmatextroundstdbold.otf");
         UserText = (EditText) reg. findViewById(R.id.userText);
         emailText = (EditText) reg.findViewById(R.id.emailText);
 
         passText = (EditText) reg.findViewById(R.id.passText);
         confirmText = (EditText)reg.findViewById(R.id.confirmText);
-
+        UserText.setTypeface(font);
+        emailText.setTypeface(font);
+        passText.setTypeface(font);
+        confirmText.setTypeface(font);
         registration_tbn = (ImageButton) reg.findViewById(R.id.signupButton);
         registration_tbn.setOnClickListener(this);
         return  reg;

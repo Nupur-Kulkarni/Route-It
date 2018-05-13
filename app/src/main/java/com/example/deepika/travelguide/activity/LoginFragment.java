@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -48,9 +49,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         View log =inflater.inflate(R.layout.fragment_login, container, false);
         session = new sessionManagement(getActivity().getApplicationContext());
+        Typeface font = Typeface.createFromAsset(getActivity().getAssets(),"font/irmatextroundstdbold.otf");
 
         useremail = (EditText) log.findViewById(R.id.editText);
         pwd = (EditText) log.findViewById(R.id.editText2);
+        useremail.setTypeface(font);
+        pwd.setTypeface(font);
         log.findViewById(R.id.loadingPanel).setVisibility(View.GONE);
 
         BASE_URL = getString(R.string.baseUrl);
