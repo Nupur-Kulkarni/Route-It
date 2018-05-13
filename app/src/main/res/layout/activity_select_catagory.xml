@@ -21,6 +21,7 @@
             tools:paddingTop="0dp" />
 
         <Button
+            android:id="@+id/mymapbutton"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:text="Map" />

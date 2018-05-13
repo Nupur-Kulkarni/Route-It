@@ -1,5 +1,6 @@
 package com.example.deepika.travelguide;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.deepika.travelguide.beans.FourSquareVenues;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -18,17 +20,23 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 
 
 
-public class PathGoogleMapActivity extends FragmentActivity implements OnMapReadyCallback {
+public class PathGoogleMapActivity extends FragmentActivity implements OnMapReadyCallback,Serializable {
 
+    int flag=0;
+    int count;
     private static final LatLng ADELAIDE = new LatLng(-34.9284449,138.6005793);
     private static final LatLng CLARE = new LatLng(-33.8414278,138.5768093);
     private static final LatLng CONNAWARRA= new LatLng(-37.2898509,140.812181 );
@@ -39,6 +47,9 @@ public class PathGoogleMapActivity extends FragmentActivity implements OnMapRead
     GoogleMap googleMap;
     final String TAG = "PathGoogleMapActivity";
 
+    HashMap<String, HashSet<FourSquareVenues>> selectedPlcesMap = new HashMap<>();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,12 +57,18 @@ public class PathGoogleMapActivity extends FragmentActivity implements OnMapRead
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-//        Typeface tf = Typeface.createFromAsset(getAssets(),
-        //              "font/irmatextroundstdmedium.otf");
+        Typeface tf = Typeface.createFromAsset(getAssets(),
+                      "font/irmatextroundstdmedium.otf");
         tv = (TextView) findViewById(R.id.mytext2);
-        //      tv.setTypeface(tf);
+              tv.setTypeface(tf);
         buttonnext=(Button)findViewById(R.id.button2);
         buttonprev=(Button)findViewById(R.id.button1);
+
+        Intent receivedIntent = getIntent();
+        //Bundle bundle = receivedIntent.getExtras();
+        selectedPlcesMap =(HashMap<String, HashSet<FourSquareVenues>>)receivedIntent.getSerializableExtra("map");
+
+
         options = new MarkerOptions();
         options.position(ADELAIDE);
         options.position(CLARE);
@@ -68,11 +85,11 @@ public class PathGoogleMapActivity extends FragmentActivity implements OnMapRead
         String origin = "origin="+ADELAIDE.latitude+","+ADELAIDE.longitude;
         String dest = "destination="+ADELAIDE.latitude+","+ADELAIDE.longitude;
         String sensor = "sensor=false";
-        // String params = origin + "&" +dest+"&"+waypoints + "&" + sensor;
+         String params = origin + "&" +dest+"&"+waypoints + "&" + sensor;
         String output = "json";
-        // String url = "https://maps.googleapis.com/maps/api/directions/"
-        //       + output + "?" + params;
-        String url = "http://maps.googleapis.com/maps/api/directions/json?origin=-34.9284449,138.6005793&destination=-34.9284449,138.6005793&waypoints=optimize:true|-33.8414278,138.5768093|-37.2898509,140.812181|-35.2052922,138.4825192&sensor=false";
+         String url = "https://maps.googleapis.com/maps/api/directions/"
+               + output + "?" + params;
+        //String url = "http://maps.googleapis.com/maps/api/directions/json?origin=-34.9284449,138.6005793&destination=-34.9284449,138.6005793&waypoints=optimize:true|-33.8414278,138.5768093|-37.2898509,140.812181|-35.2052922,138.4825192&sensor=false";
         return url;
     }
 
@@ -105,17 +122,62 @@ public class PathGoogleMapActivity extends FragmentActivity implements OnMapRead
                 13));
         addMarkers();
 
-        buttonnext.setOnClickListener(new View.OnClickListener() {
+        final ArrayList<LatLng> Locname=new ArrayList <LatLng>();
+        Locname.add(ADELAIDE);
+        Locname.add(CLARE);
+        Locname.add(CONNAWARRA);
+        Locname.add(MCLAREN_VALE);
+        count=Locname.size();
+
+        tv.setText("Starting Point");
+      //   buttonnext.setEnabled(true);
+            buttonnext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Log.d("Flag is: ","Flag " +flag);
+                    if(flag<count-1){
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Locname.get(flag+1), 13));
+                        tv.setText("Location "+(flag+1));
+                        flag++;
+                    }
+                    else if(flag==count-1){
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Locname.get(0), 13));
+                        tv.setText("Location 0");
+                        flag++;
+                    }
+                    else if(flag>=count){
+         //               buttonnext.setEnabled(false);
+           //             buttonnext.setVisibility(View.INVISIBLE);
+                        flag=0;
+                    }
+
+                }
+
+            });
+
+    //    buttonprev.setEnabled(true);
+        buttonprev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(MCLAREN_VALE,
-                        13));
+
+                //buttonprev.setVisibility(View.INVISIBLE);
+                Log.d("Flag count is: ","Flag " +flag);
+                if(flag>0 && flag<=count){
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Locname.get(flag-1), 13));
+                    tv.setText("Location "+(flag-1));
+                    flag--;
+                }
+
+                else if(flag==0){
+      //              buttonprev.setEnabled(false);
+       //             buttonprev.setVisibility(View.INVISIBLE);
+                    flag=count;
+                }
 
             }
+
         });
-
-
-
     }
 
     private class ReadTask extends AsyncTask<String, Void, String> {
@@ -145,12 +207,21 @@ public class PathGoogleMapActivity extends FragmentActivity implements OnMapRead
                 String... jsonData) {
 
             JSONObject jObject;
+            JSONArray waypoints,jroutes;
             List<List<HashMap<String, String>>> routes = null;
 
             try {
                 jObject = new JSONObject(jsonData[0]);
+                jroutes = jObject.getJSONArray("routes");
+                Log.d("Routes here",String.valueOf(jroutes));
+                waypoints = ((JSONObject) jroutes.get(0)).getJSONArray("waypoint_order");
+
+                Log.d("Waypoints here",String.valueOf(waypoints));
+
                 PathJsonParser parser = new PathJsonParser();
                 routes = parser.parse(jObject);
+
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

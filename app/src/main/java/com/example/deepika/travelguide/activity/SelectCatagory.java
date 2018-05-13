@@ -12,16 +12,19 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.deepika.travelguide.PathGoogleMapActivity;
 import com.example.deepika.travelguide.R;
 import com.example.deepika.travelguide.beans.FourSquareVenues;
 import com.example.deepika.travelguide.beans.FoursquareAPIClass;
 import com.example.deepika.travelguide.service.ServiceResponse;
 import com.tooltip.Tooltip;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -30,9 +33,11 @@ import java.util.Set;
 public class SelectCatagory extends AppCompatActivity  implements View.OnClickListener, ServiceResponse, ListData {
     ImageButton shopping, parks, food, fav;
     ImageButton attraction;
+    Button mybutton;
     Tooltip tooltip_,tooltip_2,tooltip_3,tooltip_1;
     String category = null;
     HashMap<String, HashSet<FourSquareVenues>> map = new HashMap<>();
+    FoursquareAPIClass foursquareActivity=null,foursquareActivity1=null;
 
     @Override
     public void getResponse(ArrayList<FourSquareVenues> venues) {
@@ -51,28 +56,32 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
         }
     }
 
-    @Override
-    public void getData(FourSquareVenues place) {
-
-        Log.d("Place", String.valueOf(place));
+    
+    public void getData(FourSquareVenues place, boolean checked) {
         HashSet<FourSquareVenues> set = new HashSet<>();
-        Log.d("category",category);
-        if(map.containsKey(category)){
-            set=map.get(category);
-            if(set.contains(place)){
-                Log.d("set","object in set");
-            }
-            else {
+        if(checked) {
+            Log.d("Place", String.valueOf(place));
 
+            Log.d("category", category);
+            if (map.containsKey(category)) {
+                set = map.get(category);
+                if (set.contains(place)) {
+                    Log.d("set", "object in set");
+                } else {
+
+                    set.add(place);
+                    map.put(category, set);
+                    Log.d("set contains 12", String.valueOf(set));
+                }
+            } else {
                 set.add(place);
-                map.put(category,set);
-                Log.d("set contains 12", String.valueOf(set));
+                map.put(category, set);
+                Log.d("set contains", String.valueOf(set));
             }
         }
         else{
-            set.add(place);
-            map.put(category,set);
-            Log.d("set contains", String.valueOf(set));
+            map.get(category).remove(place);
+            Log.d("remove","place removed from set");
         }
         Log.d("hashmap", String.valueOf(map));
     }
@@ -94,20 +103,29 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
         parks = (ImageButton) findViewById(R.id.parks);
         food = (ImageButton) findViewById(R.id.food);
 
+        mybutton = (Button) findViewById(R.id.mymapbutton);
+
         attraction.setOnClickListener(this);
         shopping.setOnClickListener(this);
         parks.setOnClickListener(this);
         food.setOnClickListener(this);
+        mybutton.setOnClickListener(this);
 
+        foursquareActivity1=new FoursquareAPIClass("4d4b7104d754a06370d81259",this);
+        category="attraction";
+        foursquareActivity1.callService();
 
     }
 
+    void onButtonClick(){
+        Log.d("click","method called on click");
+    }
     @TargetApi(Build.VERSION_CODES.O)
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onClick(View view) {
         Intent intent = new Intent(getApplicationContext(),VenueDetails_Activity.class);
-        FoursquareAPIClass foursquareActivity=null;
+
         switch (view.getId()) {
             case R.id.attraction:
 
@@ -132,9 +150,6 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
                 category="attraction";
                 foursquareActivity.callService();
 
-
-
-
                 break;
             case R.id.shopping:
                 attraction.setImageResource(R.drawable.attraction);
@@ -152,7 +167,7 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
                 }
 
 
-                 tooltip_1 = new Tooltip.Builder(shopping).setText("Shopping").show();
+                tooltip_1 = new Tooltip.Builder(shopping).setText("Shopping").show();
 
                 foursquareActivity=new FoursquareAPIClass("4d4b7104d754a06370d81259",this);
                 category="shopping";
@@ -174,7 +189,7 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
                 if(tooltip_3 != null) {
                     tooltip_3.dismiss();
                 }
-                 tooltip_2 = new Tooltip.Builder(parks).setText("Parks").show();
+                tooltip_2 = new Tooltip.Builder(parks).setText("Parks").show();
 
                 foursquareActivity=new FoursquareAPIClass("4d4b7104d754a06370d81259",this);
                 category="parks";
@@ -196,7 +211,7 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
                 if(tooltip_2 != null) {
                     tooltip_2.dismiss();
                 }
-                 tooltip_3 = new Tooltip.Builder(food).setText("Food").show();
+                tooltip_3 = new Tooltip.Builder(food).setText("Food").show();
 
                 foursquareActivity=new FoursquareAPIClass("4d4b7105d754a06374d81259",this);
                 category="food";
@@ -205,10 +220,18 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
 
                 break;
 
+            case R.id.mymapbutton:
+                Intent intent1 = new Intent(getApplicationContext(),PathGoogleMapActivity.class);
+                intent1.putExtra("map", (Serializable) map);
+                startActivity(intent1);
+
 
         }
     }
 
+    @Override
+    public void getData(FourSquareVenues fourSquareVenues) {
 
+    }
 }
 
