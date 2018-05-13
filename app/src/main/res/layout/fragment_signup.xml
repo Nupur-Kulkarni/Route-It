@@ -21,8 +21,9 @@
         android:layout_alignParentLeft="true">
 
         <EditText
+
+            android:singleLine="true"
             android:id="@+id/userText"
-            style="@android:style/Widget.Holo.Light.AutoCompleteTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -31,13 +32,14 @@
             android:layout_marginBottom="227dp"
             android:ems="10"
             android:background="@drawable/tan_small"
-            android:padding="4dp"
+
             android:hint="Username/Fullname"
             android:textColor="#86195A"
             android:textColorHint="#86195A"
             tools:ignore="HardcodedText" />
 
         <EditText
+            android:singleLine="true"
             android:id="@+id/emailText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -47,13 +49,14 @@
             android:layout_marginTop="65dp"
             android:ems="10"
             android:background="@drawable/tan_small"
-            android:paddingBottom="4dp"
+
             android:hint="Email"
             android:textColor="#86195A"
             android:textColorHint="#86195A"
             tools:ignore="HardcodedText,TextFields" />
 
         <EditText
+            android:singleLine="true"
             android:id="@+id/passText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -61,13 +64,14 @@
             android:ems="10"
             android:background="@drawable/tan_small"
             android:layout_marginBottom="65dp"
-            android:paddingBottom="4dp"
+            android:inputType="textPassword"
             android:hint="Password"
             android:textColor="#86195A"
             android:textColorHint="#86195A"
             tools:ignore="HardcodedText,UnknownId" />
 
         <EditText
+            android:singleLine="true"
             android:id="@+id/confirmText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -77,11 +81,11 @@
             android:layout_marginBottom="65dp"
             android:ems="10"
             android:background="@drawable/tan_small"
-            android:paddingBottom="4dp"
+
             android:hint="Confirm Password"
             android:textColor="#86195A"
             android:textColorHint="#86195A"
-            android:inputType="textPersonName"
+            android:inputType="textPassword"
             tools:ignore="HardcodedText" />
 
         <ImageButton

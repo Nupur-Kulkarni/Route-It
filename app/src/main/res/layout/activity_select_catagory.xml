@@ -29,8 +29,9 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:text="Map"
+            android:background="#86195A"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="#86195A"
+            android:textColor="#ffffff"
             tools:onClick="onButtonClick" />
 
     </RelativeLayout>
@@ -42,7 +43,7 @@
         android:background="#86195A"
         android:gravity="center"
         android:text="Select a Category"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#ffffff" />
 
     <LinearLayout
@@ -76,6 +77,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textColor="#A9A9A9"
                 android:text="Attraction" />
 
 
@@ -101,6 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textColor="#A9A9A9"
                 android:text="Shopping" />
         </LinearLayout>
         <LinearLayout
@@ -122,6 +125,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textColor="#A9A9A9"
                 android:text="Parks" />
         </LinearLayout>
         <LinearLayout
@@ -143,6 +147,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textColor="#A9A9A9"
                 android:text="Food" />
         </LinearLayout>
 

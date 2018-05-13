@@ -2,6 +2,7 @@ package com.example.deepika.travelguide.activity;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Handler;
@@ -37,9 +38,12 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
     Tooltip tooltip_, tooltip_2, tooltip_3, tooltip_1;
     String category = null;
     Button mymapbutton;
+    TextView attraction_txtView,shopping_txtView,food_txtView,parks_textView;
     HashMap<String, HashSet<FourSquareVenues>> map = new HashMap<>();
     Handler handler = new Handler();
     FoursquareAPIClass foursquareActivity=null, foursquareActivity1=null;
+    private FourSquareVenues startLocation=null;
+    String selectedCity="";
     public class  M2Update implements Runnable {
         private String category;
         public M2Update(String category1) {
@@ -54,31 +58,50 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
 
 
 
-                    attraction.setImageResource(R.drawable.attractions_active);
-                    shopping.setImageResource(R.drawable.shopping_button);
-                    parks.setImageResource(R.drawable.parks_button);
-                    food.setImageResource(R.drawable.food_button);
+                    attraction.setImageResource(R.drawable.attractions_button);
+                    shopping.setImageResource(R.drawable.shopping_active);
+                    parks.setImageResource(R.drawable.parks_active);
+                    food.setImageResource(R.drawable.food_active);
+                    attraction_txtView.setTextColor(Color.parseColor("#000000"));
+                    shopping_txtView.setTextColor(Color.parseColor("#A9A9A9"));
+                    parks_textView.setTextColor(Color.parseColor("#A9A9A9"));
+                    food_txtView.setTextColor(Color.parseColor("#A9A9A9"));
+
                     break;
                 case "shopping":
-                    attraction.setImageResource(R.drawable.attraction);
-                    shopping.setImageResource(R.drawable.shopping_active);
-                    parks.setImageResource(R.drawable.parks_button);
-                    food.setImageResource(R.drawable.food_button);
+                    attraction.setImageResource(R.drawable.attractions_active);
+                    shopping.setImageResource(R.drawable.shopping_button);
+                    parks.setImageResource(R.drawable.parks_active);
+                    food.setImageResource(R.drawable.food_active);
+                    attraction_txtView.setTextColor(Color.parseColor("#A9A9A9"));
+                    shopping_txtView.setTextColor(Color.parseColor("#000000"));
+                    parks_textView.setTextColor(Color.parseColor("#A9A9A9"));
+                    food_txtView.setTextColor(Color.parseColor("#A9A9A9"));
+
 
                     break;
                 case "parks":
-                    attraction.setImageResource(R.drawable.attractions_button);
-                    shopping.setImageResource(R.drawable.shopping_button);
-                    parks.setImageResource(R.drawable.parks_active);
-                    food.setImageResource(R.drawable.food_button);
+                    attraction.setImageResource(R.drawable.attractions_active);
+                    shopping.setImageResource(R.drawable.shopping_active);
+                    parks.setImageResource(R.drawable.parks_button);
+                    food.setImageResource(R.drawable.food_active);
+                    attraction_txtView.setTextColor(Color.parseColor("#A9A9A9"));
+                    shopping_txtView.setTextColor(Color.parseColor("#A9A9A9"));
+                    parks_textView.setTextColor(Color.parseColor("#000000"));
+                    food_txtView.setTextColor(Color.parseColor("#A9A9A9"));
+
 
 
                     break;
                 case "food":
-                    attraction.setImageResource(R.drawable.attractions_button);
-                    shopping.setImageResource(R.drawable.shopping_button);
-                    parks.setImageResource(R.drawable.parks_button);
-                    food.setImageResource(R.drawable.food_active);
+                    attraction.setImageResource(R.drawable.attractions_active);
+                    shopping.setImageResource(R.drawable.shopping_active);
+                    parks.setImageResource(R.drawable.parks_active);
+                    food.setImageResource(R.drawable.food_button);
+                    attraction_txtView.setTextColor(Color.parseColor("#A9A9A9"));
+                    shopping_txtView.setTextColor(Color.parseColor("#A9A9A9"));
+                    parks_textView.setTextColor(Color.parseColor("#A9A9A9"));
+                    food_txtView.setTextColor(Color.parseColor("#000000"));
 
                     break;
 
@@ -141,19 +164,26 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_catagory);
 
+        selectedCity=getIntent().getStringExtra("selectedCity");
+        startLocation= (FourSquareVenues) getIntent().getSerializableExtra("startlocation");
+        Log.d("startLocation",""+startLocation);
+        HashSet<FourSquareVenues> set=new HashSet<>();
+        set.add(startLocation);
+        map.put("startLocation",set);
+        Log.d("city in cateory",selectedCity+" startlocation "+startLocation);
         Typeface tf = Typeface.createFromAsset(getAssets(),
                 "font/irmatextroundstdmedium.otf");
         Typeface tfb =Typeface.createFromAsset(getAssets(),
                 "font/irmatextroundstdbold.otf");
         TextView tv = (TextView) findViewById(R.id.txt);
         tv.setTypeface(tf);
-        TextView attraction_txtView = (TextView)findViewById(R.id.attraction_txt);
+         attraction_txtView = (TextView)findViewById(R.id.attraction_txt);
         attraction_txtView.setTypeface(tfb);
-        TextView shopping_txtView = (TextView)findViewById(R.id.shopping_txt);
+        shopping_txtView = (TextView)findViewById(R.id.shopping_txt);
         shopping_txtView.setTypeface(tfb);
-        TextView parks_textView = (TextView)findViewById(R.id.parks_txt);
+         parks_textView = (TextView)findViewById(R.id.parks_txt);
         parks_textView.setTypeface(tfb);
-        TextView food_txtView = (TextView)findViewById(R.id.food_txt);
+         food_txtView = (TextView)findViewById(R.id.food_txt);
         food_txtView.setTypeface(tfb);
         mymapbutton = (Button) findViewById(R.id.myMapbutton);
         mymapbutton.setOnClickListener(this);
