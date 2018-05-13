@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TravelGuide</string>
+    <string name="app_name">ROUTE IT</string>
     <string name="title_activity_maps">Map</string>
     <string name="resetFilteter">RESET FILTERS</string>
     <string name="applyFilter">APPLY FILTERS</string>

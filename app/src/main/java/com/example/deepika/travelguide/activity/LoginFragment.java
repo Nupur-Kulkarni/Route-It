@@ -51,6 +51,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         useremail = (EditText) log.findViewById(R.id.editText);
         pwd = (EditText) log.findViewById(R.id.editText2);
+        log.findViewById(R.id.loadingPanel).setVisibility(View.GONE);
 
         BASE_URL = getString(R.string.baseUrl);
         bt_login = (ImageButton)log.findViewById(R.id.login);
