@@ -1,6 +1,8 @@
 package com.example.deepika.travelguide.beans;
 
-public class VenueLocation {
+import java.io.Serializable;
+
+public class VenueLocation implements Serializable{
     private Double lat;
     private Double lng;
     private Integer distance;

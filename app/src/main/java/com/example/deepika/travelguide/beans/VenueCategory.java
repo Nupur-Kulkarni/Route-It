@@ -1,6 +1,8 @@
 package com.example.deepika.travelguide.beans;
 
-public class VenueCategory {
+import java.io.Serializable;
+
+public class VenueCategory implements Serializable {
     private String categoryId;
     private String name;
 

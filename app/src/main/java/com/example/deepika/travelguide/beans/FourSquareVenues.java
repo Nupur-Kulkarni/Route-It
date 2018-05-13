@@ -1,13 +1,14 @@
 package com.example.deepika.travelguide.beans;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by deepi on 5/5/2018.
  */
 
-public class FourSquareVenues {
+public class FourSquareVenues implements Serializable {
 
     private String id;
     private String name;

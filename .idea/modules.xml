@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://C:\Users\kanch\AndroidStudioProjects\travel_guide\TravelGuide.iml" filepath="C:\Users\kanch\AndroidStudioProjects\travel_guide\TravelGuide.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/travel_guide.iml" filepath="$PROJECT_DIR$/travel_guide.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/travel_guide.iml" filepath="$PROJECT_DIR$/.idea/travel_guide.iml" />
     </modules>
   </component>
 </project>
