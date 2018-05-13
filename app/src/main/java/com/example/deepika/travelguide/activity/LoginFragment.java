@@ -86,8 +86,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     }
     private class LoginUser extends AsyncTask<String, Integer, String> {
         @Override
-        protected void onPostExecute(String message) {
-            super.onPostExecute(message);
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
             SharedPreferences details = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
             SharedPreferences.Editor e = details.edit();
 
@@ -95,9 +95,15 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             e.apply();
 
             //redirect to maps activity
-            Intent intent=new Intent(getActivity().getApplicationContext(),SelectCity.class);
-            intent.putExtra("email", String.valueOf(useremail.getText()));
-            startActivity(intent);
+          //  Log.d("RESPONSE: ", response);
+          //  if(response!=("User does not exist!"))
+            {
+                Intent intent = new Intent(getActivity().getApplicationContext(), SelectCity.class);
+                intent.putExtra("email", String.valueOf(useremail.getText()));
+                startActivity(intent);
+            }
+          //  Toast.makeText(getActivity().getApplicationContext(), "Authentication failed.",
+          //          Toast.LENGTH_SHORT).show();
 
             //startActivity(i);
         }
