@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.ListView;
 
 import com.example.deepika.travelguide.service.AsyncResponse;
+import com.example.deepika.travelguide.service.ServiceResponse;
 import com.example.deepika.travelguide.service.WebServiceAsynTask;
 
 import org.json.JSONArray;

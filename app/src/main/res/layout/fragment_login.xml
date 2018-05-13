@@ -28,7 +28,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:background="#86195A"
-            android:src="@drawable/ic_forward_black_24dp"
+            android:src="@drawable/arrowsmallwhite"
             tools:ignore="ContentDescription" />
 
         <EditText
@@ -41,6 +41,10 @@
             android:ems="10"
             android:hint="Email"
             android:inputType="textPersonName"
+            android:background="@drawable/tan_small"
+            android:padding="4dp"
+            android:textColor="#86195A"
+            android:textColorHint="#86195A"
             tools:ignore="HardcodedText,UnknownIdInLayout" />
 
         <EditText
@@ -51,7 +55,11 @@
             android:layout_centerVertical="true"
             android:ems="10"
             android:hint="Password"
-            android:inputType="textPersonName"
+            android:inputType="textPassword"
+            android:background="@drawable/tan_small"
+            android:padding="4dp"
+            android:textColor="#86195A"
+            android:textColorHint="#86195A"
             tools:ignore="HardcodedText,UnknownIdInLayout" />
 
 

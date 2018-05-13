@@ -38,6 +38,7 @@ public class StartLocation extends AppCompatActivity implements AsyncResponse{
     private ArrayList<AutoCompleteBean> resultList;
     private String API_KEY;
     private ArrayList<Double> latlon;
+    String city_userselected="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -46,8 +47,15 @@ public class StartLocation extends AppCompatActivity implements AsyncResponse{
         setContentView(R.layout.activity_start_location);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        String city_userselected=getIntent().getStringExtra("City_latlon");;
+        city_userselected=getIntent().getStringExtra("City_latlon");;
         Log.d("city_userselected",""+city_userselected);
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         AutoCompleteTextView autocompleteView = (AutoCompleteTextView) findViewById(R.id.autocomplete);
         autocompleteView.setAdapter(new PlacesAutoCompleteAdapter(this, R.layout.autocomplete_list_item,getLatLon(city_userselected)));
 
@@ -59,7 +67,7 @@ public class StartLocation extends AppCompatActivity implements AsyncResponse{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 try {
-                     Details(resultList.get(position).getDescription(), resultList.get(position).getReference());
+                    Details(resultList.get(position).getDescription(), resultList.get(position).getReference());
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
@@ -69,6 +77,7 @@ public class StartLocation extends AppCompatActivity implements AsyncResponse{
             }
         });
     }
+
     private void Details(String description, String reference ) throws UnsupportedEncodingException {
         API_KEY=PropertyReader.getProperty(getApplicationContext(), "application.properties","GOOGLE_API_KEY");
         StringBuilder sb = new StringBuilder(PLACES_API_BASE + TYPE_DETAILS + OUT_JSON);
