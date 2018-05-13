@@ -56,7 +56,7 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
         }
     }
 
-    
+    @Override
     public void getData(FourSquareVenues place, boolean checked) {
         HashSet<FourSquareVenues> set = new HashSet<>();
         if(checked) {
@@ -229,9 +229,6 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
         }
     }
 
-    @Override
-    public void getData(FourSquareVenues fourSquareVenues) {
 
-    }
 }
 
