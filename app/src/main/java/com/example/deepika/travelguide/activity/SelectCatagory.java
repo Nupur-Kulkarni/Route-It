@@ -56,50 +56,50 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
 
 
 
-                    attraction.setImageResource(R.drawable.attractions_active);
-                    shopping.setImageResource(R.drawable.shopping_button);
-                    parks.setImageResource(R.drawable.parks_button);
-                    food.setImageResource(R.drawable.food_button);
-                    attraction_txtView.setTextColor(Color.parseColor("#D3D3D3"));
-                    shopping_txtView.setTextColor(Color.parseColor("#000000"));
-                    parks_textView.setTextColor(Color.parseColor("#000000"));
-                    food_txtView.setTextColor(Color.parseColor("#000000"));
+                    attraction.setImageResource(R.drawable.attractions_button);
+                    shopping.setImageResource(R.drawable.shopping_active);
+                    parks.setImageResource(R.drawable.parks_active);
+                    food.setImageResource(R.drawable.food_active);
+                    attraction_txtView.setTextColor(Color.parseColor("#000000"));
+                    shopping_txtView.setTextColor(Color.parseColor("#A9A9A9"));
+                    parks_textView.setTextColor(Color.parseColor("#A9A9A9"));
+                    food_txtView.setTextColor(Color.parseColor("#A9A9A9"));
 
                     break;
                 case "shopping":
-                    attraction.setImageResource(R.drawable.attraction);
-                    shopping.setImageResource(R.drawable.shopping_active);
-                    parks.setImageResource(R.drawable.parks_button);
-                    food.setImageResource(R.drawable.food_button);
-                    attraction_txtView.setTextColor(Color.parseColor("#000000"));
-                    shopping_txtView.setTextColor(Color.parseColor("#D3D3D3"));
-                    parks_textView.setTextColor(Color.parseColor("#000000"));
-                    food_txtView.setTextColor(Color.parseColor("#000000"));
+                    attraction.setImageResource(R.drawable.attractions_active);
+                    shopping.setImageResource(R.drawable.shopping_button);
+                    parks.setImageResource(R.drawable.parks_active);
+                    food.setImageResource(R.drawable.food_active);
+                    attraction_txtView.setTextColor(Color.parseColor("#A9A9A9"));
+                    shopping_txtView.setTextColor(Color.parseColor("#000000"));
+                    parks_textView.setTextColor(Color.parseColor("#A9A9A9"));
+                    food_txtView.setTextColor(Color.parseColor("#A9A9A9"));
 
 
                     break;
                 case "parks":
-                    attraction.setImageResource(R.drawable.attractions_button);
-                    shopping.setImageResource(R.drawable.shopping_button);
-                    parks.setImageResource(R.drawable.parks_active);
-                    food.setImageResource(R.drawable.food_button);
-                    attraction_txtView.setTextColor(Color.parseColor("#000000"));
-                    shopping_txtView.setTextColor(Color.parseColor("#000000"));
-                    parks_textView.setTextColor(Color.parseColor("#D3D3D3"));
-                    food_txtView.setTextColor(Color.parseColor("#000000"));
+                    attraction.setImageResource(R.drawable.attractions_active);
+                    shopping.setImageResource(R.drawable.shopping_active);
+                    parks.setImageResource(R.drawable.parks_button);
+                    food.setImageResource(R.drawable.food_active);
+                    attraction_txtView.setTextColor(Color.parseColor("#A9A9A9"));
+                    shopping_txtView.setTextColor(Color.parseColor("#A9A9A9"));
+                    parks_textView.setTextColor(Color.parseColor("#000000"));
+                    food_txtView.setTextColor(Color.parseColor("#A9A9A9"));
 
 
 
                     break;
                 case "food":
-                    attraction.setImageResource(R.drawable.attractions_button);
-                    shopping.setImageResource(R.drawable.shopping_button);
-                    parks.setImageResource(R.drawable.parks_button);
-                    food.setImageResource(R.drawable.food_active);
-                    attraction_txtView.setTextColor(Color.parseColor("#000000"));
-                    shopping_txtView.setTextColor(Color.parseColor("#000000"));
-                    parks_textView.setTextColor(Color.parseColor("#000000"));
-                    food_txtView.setTextColor(Color.parseColor("#D3D3D3"));
+                    attraction.setImageResource(R.drawable.attractions_active);
+                    shopping.setImageResource(R.drawable.shopping_active);
+                    parks.setImageResource(R.drawable.parks_active);
+                    food.setImageResource(R.drawable.food_button);
+                    attraction_txtView.setTextColor(Color.parseColor("#A9A9A9"));
+                    shopping_txtView.setTextColor(Color.parseColor("#A9A9A9"));
+                    parks_textView.setTextColor(Color.parseColor("#A9A9A9"));
+                    food_txtView.setTextColor(Color.parseColor("#000000"));
 
                     break;
 
