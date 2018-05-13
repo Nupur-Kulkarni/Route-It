@@ -155,6 +155,7 @@ public class StartLocation extends AppCompatActivity implements AsyncResponse{
             System.out.println("jsonObj.toString() :::: " + jsonObj.toString());
             System.out.println("jsonObjLocation.toString() :::: " + jsonObjLocation.toString());
             FourSquareVenues startLocation=new FourSquareVenues();
+            startLocation.setId("1");
             VenueLocation location=new VenueLocation();
             location.setLng(jsonObjLocation.getDouble("lng"));
             location.setLat(jsonObjLocation.getDouble("lat"));
@@ -163,6 +164,7 @@ public class StartLocation extends AppCompatActivity implements AsyncResponse{
             Log.d("start location ", ""+startLocation);
 
             Intent i=new Intent(getApplicationContext(), SelectCatagory.class);
+            i.putExtra("selectedCity",city_userselected);
             i.putExtra("startlocation", (Serializable) startLocation);
             startActivity(i);
         } catch (JSONException e) {

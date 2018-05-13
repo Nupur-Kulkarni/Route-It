@@ -42,6 +42,8 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
     HashMap<String, HashSet<FourSquareVenues>> map = new HashMap<>();
     Handler handler = new Handler();
     FoursquareAPIClass foursquareActivity=null, foursquareActivity1=null;
+    private FourSquareVenues startLocation=null;
+    String selectedCity="";
     public class  M2Update implements Runnable {
         private String category;
         public M2Update(String category1) {
@@ -162,6 +164,13 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_catagory);
 
+        selectedCity=getIntent().getStringExtra("selectedCity");
+        startLocation= (FourSquareVenues) getIntent().getSerializableExtra("startlocation");
+        Log.d("startLocation",""+startLocation);
+        HashSet<FourSquareVenues> set=new HashSet<>();
+        set.add(startLocation);
+        map.put("startLocation",set);
+        Log.d("city in cateory",selectedCity+" startlocation "+startLocation);
         Typeface tf = Typeface.createFromAsset(getAssets(),
                 "font/irmatextroundstdmedium.otf");
         Typeface tfb =Typeface.createFromAsset(getAssets(),
