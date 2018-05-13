@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.example.deepika.travelguide.R;
 import com.example.deepika.travelguide.autocomplete.AutoCompleteBean;
 import com.example.deepika.travelguide.autocomplete.PlaceAPI;
+import com.example.deepika.travelguide.beans.FourSquareVenues;
+import com.example.deepika.travelguide.beans.VenueLocation;
 import com.example.deepika.travelguide.service.AsyncResponse;
 import com.example.deepika.travelguide.service.WebServiceAsynTask;
 import com.example.deepika.travelguide.util.PropertyReader;
@@ -26,6 +28,7 @@ import com.example.deepika.travelguide.util.PropertyReader;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -39,6 +42,7 @@ public class StartLocation extends AppCompatActivity implements AsyncResponse{
     private String API_KEY;
     private ArrayList<Double> latlon;
     String city_userselected="";
+    String description="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -83,7 +87,7 @@ public class StartLocation extends AppCompatActivity implements AsyncResponse{
         StringBuilder sb = new StringBuilder(PLACES_API_BASE + TYPE_DETAILS + OUT_JSON);
         sb.append("?reference=" + URLEncoder.encode(reference, "utf8"));
         sb.append("&key=" + API_KEY);
-
+        this.description=description;
         String[] params=new String[2];
         params[0]=sb.toString();
         params[1]="GET";
@@ -150,11 +154,16 @@ public class StartLocation extends AppCompatActivity implements AsyncResponse{
 
             System.out.println("jsonObj.toString() :::: " + jsonObj.toString());
             System.out.println("jsonObjLocation.toString() :::: " + jsonObjLocation.toString());
+            FourSquareVenues startLocation=new FourSquareVenues();
+            VenueLocation location=new VenueLocation();
+            location.setLng(jsonObjLocation.getDouble("lng"));
+            location.setLat(jsonObjLocation.getDouble("lat"));
+            startLocation.setLocation(location);
+            startLocation.setName(description);
+            Log.d("start location ", ""+startLocation);
 
-            latlon = new ArrayList<Double>(2);
-            latlon.add(jsonObjLocation.getDouble("lat"));
-            latlon.add(jsonObjLocation.getDouble("lng"));
             Intent i=new Intent(getApplicationContext(), SelectCatagory.class);
+            i.putExtra("startlocation", (Serializable) startLocation);
             startActivity(i);
         } catch (JSONException e) {
             Log.e("start location", "Cannot process JSON results", e);
