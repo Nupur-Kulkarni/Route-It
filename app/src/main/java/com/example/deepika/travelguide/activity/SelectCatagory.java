@@ -44,6 +44,8 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
     FoursquareAPIClass foursquareActivity=null, foursquareActivity1=null;
     private FourSquareVenues startLocation=null;
     String selectedCity="";
+    private String[] arr;
+
     public class  M2Update implements Runnable {
         private String category;
         public M2Update(String category1) {
@@ -54,7 +56,7 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
         @Override
         public void run() {
             switch (category) {
-                case "attraction":
+                case "sights":
 
 
 
@@ -80,7 +82,7 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
 
 
                     break;
-                case "parks":
+                case "fun":
                     attraction.setImageResource(R.drawable.attractions_active);
                     shopping.setImageResource(R.drawable.shopping_active);
                     parks.setImageResource(R.drawable.parks_button);
@@ -167,6 +169,14 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
         selectedCity=getIntent().getStringExtra("selectedCity");
         startLocation= (FourSquareVenues) getIntent().getSerializableExtra("startlocation");
         Log.d("startLocation",""+startLocation);
+        HashMap<String,String[]> citymap = new HashMap<>();
+        citymap.put("Baltimore",new String[] {"39.361378%2C-76.482182","39.225339%2C-76.711521"});
+        citymap.put("WashingtonDC",new String[] {"38.977026%2C-76.903439","38.840242%2C-77.132778"});
+        citymap.put("NewYork",new String[] {"40.819006%2C-73.864689","40.685845%2C-74.094028"});
+        citymap.put("LasVegas",new String[] {"36.266421%2C-114.752884","35.697456%2C-115.670242"});
+
+        arr = citymap.get(selectedCity);
+
         HashSet<FourSquareVenues> set=new HashSet<>();
         set.add(startLocation);
         map.put("startLocation",set);
@@ -198,10 +208,11 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
         shopping.setOnClickListener(this);
         parks.setOnClickListener(this);
         food.setOnClickListener(this);
-        M2Update m2UpdateUI = new M2Update("attraction");
+        M2Update m2UpdateUI = new M2Update("sights");
         handler.post(m2UpdateUI);
-        foursquareActivity1=new FoursquareAPIClass("4d4b7104d754a06370d81259",this);
-        category="attraction";
+        foursquareActivity1=new FoursquareAPIClass("sights",arr[0],arr[1],this);
+        category="sights";
+        Log.d("category",category);
         foursquareActivity1.callService();
 
     }
@@ -219,10 +230,10 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
             case R.id.attraction:
 
 
-                M2Update m2UpdateUI = new M2Update("attraction");
+                M2Update m2UpdateUI = new M2Update("sights");
                 handler.post(m2UpdateUI);
-                foursquareActivity=new FoursquareAPIClass("4d4b7104d754a06370d81259",this);
-                category="attraction";
+                foursquareActivity=new FoursquareAPIClass("sights",arr[0],arr[1],this);
+                category="sights";
                 foursquareActivity.callService();
 
 
@@ -232,18 +243,17 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
             case R.id.shopping:
                 M2Update m2UpdateUI1 = new M2Update("shopping");
                 handler.post(m2UpdateUI1);
-                foursquareActivity=new FoursquareAPIClass("4d4b7104d754a06370d81259",this);
+                foursquareActivity=new FoursquareAPIClass("shopping",arr[0],arr[1],this);
                 category="shopping";
                 foursquareActivity.callService();
 
 
                 break;
             case R.id.parks:
-                M2Update m2UpdateUI2 = new M2Update("parks");
+                M2Update m2UpdateUI2 = new M2Update("fun");
                 handler.post(m2UpdateUI2);
-
-                foursquareActivity=new FoursquareAPIClass("4d4b7104d754a06370d81259",this);
-                category="parka";
+                foursquareActivity=new FoursquareAPIClass("fun",arr[0],arr[1],this);
+                category="fun";
                 foursquareActivity.callService();
 
 
@@ -253,7 +263,7 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
                 M2Update m2UpdateUI3 = new M2Update("food");
                 handler.post(m2UpdateUI3);
                 category="food";
-                foursquareActivity=new FoursquareAPIClass("4d4b7105d754a06374d81259",this);
+                foursquareActivity=new FoursquareAPIClass("food",arr[0],arr[1],this);
                 foursquareActivity.callService();
 
 

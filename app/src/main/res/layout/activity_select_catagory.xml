@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="#A9A9A9"
-                android:text="Attraction" />
+                android:text="Sights" />
 
 
         </LinearLayout>
@@ -126,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="#A9A9A9"
-                android:text="Parks" />
+                android:text="Fun" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"

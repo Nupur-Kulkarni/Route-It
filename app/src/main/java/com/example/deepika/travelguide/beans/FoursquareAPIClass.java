@@ -17,11 +17,13 @@ import java.util.ArrayList;
 public class FoursquareAPIClass implements AsyncResponse{
 
     private String categoryid="4d4b7104d754a06370d81259";
-
-
+    private String ne;
+    private String sw;
     private ServiceResponse class_that_called_this_API=null;
-    public FoursquareAPIClass(String categoryid, ServiceResponse serviceResponse){
-        this.categoryid=categoryid;
+    public FoursquareAPIClass(String categoryId, String ne, String sw, ServiceResponse serviceResponse){
+        this.categoryid = categoryId;
+        this.ne = ne;
+        this.sw = sw;
         class_that_called_this_API=serviceResponse;
     }
     LocationManager locationManager;
@@ -37,7 +39,7 @@ public class FoursquareAPIClass implements AsyncResponse{
     private AsyncResponse delegate = null;
     public void callService() {
 
-        String[] params = new String[12];
+        String[] params = new String[16];
         params[0]= "https://api.foursquare.com/v2/search/recommendations";//PropertyReader.getProperty(, "application.properties","FOURSQUARE_PLACES_API_URL");
         params[1]="GET";
         params[2]="ll";
@@ -48,8 +50,12 @@ public class FoursquareAPIClass implements AsyncResponse{
         params[7]=CLIENT_SECRET;
         params[8]="v";
         params[9]="20140715";
-        params[10]="categoryId";
-        params[11]=categoryid;
+        params[10]="ne";
+        params[11]=ne;
+        params[12]="sw";
+        params[13]=sw;
+        params[14]="intent";
+        params[15]=categoryid;
 
         WebServiceAsynTask task = new WebServiceAsynTask(params,this);
         task.execute(params);

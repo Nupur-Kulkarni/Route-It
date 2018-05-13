@@ -162,7 +162,9 @@ class customAdaptor extends  ArrayAdapter<FourSquareVenues> {   //custom adapter
             ViewHolder holder = (ViewHolder) Custom.getTag();
             holder.name.setText(place.get(position).getName());
             holder.addr.setText(place.get(position).get_Address());
-            Picasso.with(getContext()).load(place.get(position).getPhotoURL()).into(holder.imageView);
+            if(place.get(position).getPhotoURL()!=null)
+                Picasso.with(getContext()).load(place.get(position).getPhotoURL()).into(holder.imageView);
+
             if (set != null) {
                 Iterator iterator = set.iterator();
 
