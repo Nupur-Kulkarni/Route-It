@@ -19,33 +19,37 @@
             android:layout_width="match_parent"
             android:layout_height="43dp"
             android:background="@color/colorPurple"
+            android:ellipsize="marquee"
             android:inputType="none"
+            android:maxLength="15"
+            android:singleLine="true"
+            android:gravity="center"
             android:text="Starting point"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-            android:textColor="@color/common_google_signin_btn_text_dark_default" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button.Colored" />
 
-        <Button
+        <ImageButton
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="43dp"
             android:background="@color/colorPurple"
-            android:text="Prev"
+            android:src="@drawable/arrowleft"
             android:textColor="@color/common_google_signin_btn_text_dark_default"
             android:visibility="visible">
 
-        </Button>
+        </ImageButton>
 
-        <Button
+        <ImageButton
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="43dp"
-            android:layout_marginLeft="300dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
             android:background="@color/colorPurple"
-            android:text="Next"
+            android:src="@drawable/arrowright"
             android:textColor="@color/common_google_signin_btn_text_dark_default">
 
-        </Button>
+        </ImageButton>
 
     </RelativeLayout>
 

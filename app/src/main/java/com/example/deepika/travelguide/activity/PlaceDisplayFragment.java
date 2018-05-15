@@ -34,6 +34,9 @@ import java.util.Set;
 
 @SuppressLint("ValidFragment")
 public class PlaceDisplayFragment extends Fragment {
+    public PlaceDisplayFragment(){
+
+    }
     ListAdapter adapter;
     String category = null;
     ListData listData = null;
