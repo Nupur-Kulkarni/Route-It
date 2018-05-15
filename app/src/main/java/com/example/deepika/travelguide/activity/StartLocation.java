@@ -14,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.Toast;
 
 import com.example.deepika.travelguide.R;
 import com.example.deepika.travelguide.autocomplete.AutoCompleteBean;
@@ -77,7 +76,6 @@ public class StartLocation extends AppCompatActivity implements AsyncResponse{
                 }
 
                 String description = (String) parent.getItemAtPosition(position);
-                Toast.makeText(getApplicationContext(), description, Toast.LENGTH_SHORT).show();
             }
         });
     }
