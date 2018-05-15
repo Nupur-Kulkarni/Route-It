@@ -100,8 +100,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             e.apply();
 
             //redirect to maps activity
-          //  Log.d("RESPONSE: ", response);
-          //  if(response!=("User does not exist!"))
+            Log.d("RESPONSE: ", response);
+            if(!response.equals("User does not exist"))
             {
                 Intent intent = new Intent(getActivity().getApplicationContext(), SelectCity.class);
                 intent.putExtra("email", String.valueOf(useremail.getText()));
