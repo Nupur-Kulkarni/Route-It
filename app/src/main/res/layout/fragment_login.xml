@@ -17,6 +17,8 @@
         android:layout_height="270dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
         android:background="#ffff"
         tools:ignore="RtlCompat">
 
@@ -24,7 +26,7 @@
         <ImageButton
             android:id="@+id/login"
             android:layout_width="365dp"
-            android:layout_height="36dp"
+            android:layout_height="46dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:background="#86195A"
@@ -46,38 +48,32 @@
         </RelativeLayout>
 
         <EditText
-            android:singleLine="true"
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:layout_marginTop="22dp"
-            android:ems="10"
-            android:hint="Email"
-            android:inputType="textPersonName"
-            android:background="@drawable/tan_small"
-            android:padding="4dp"
+            android:layout_marginBottom="8dp"
+            android:padding="20dp"
+            android:paddingBottom="6dp"
+            android:inputType="textEmailAddress"
             android:textColor="#86195A"
-            android:textColorHint="#86195A"
-            tools:ignore="HardcodedText,UnknownIdInLayout" />
+            android:hint="Email" >
+        </EditText>
 
         <EditText
-
-            android:singleLine="true"
             android:id="@+id/editText2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:ems="10"
+            android:layout_marginTop="88dp"
+            android:layout_marginBottom="8dp"
+            android:padding="20dp"
+            android:paddingBottom="10dp"
             android:hint="Password"
             android:inputType="textPassword"
-            android:background="@drawable/tan_small"
-            android:padding="4dp"
-            android:textColor="#86195A"
-            android:textColorHint="#86195A"
-            tools:ignore="HardcodedText,UnknownIdInLayout" />
+            android:textColor="#86195A">
+        </EditText>
+
+
 
 
     </RelativeLayout>
