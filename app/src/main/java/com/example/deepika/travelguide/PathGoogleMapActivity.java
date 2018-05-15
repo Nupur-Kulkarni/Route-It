@@ -134,7 +134,7 @@ public class PathGoogleMapActivity extends FragmentActivity implements OnMapRead
     private void addMarkers() {
 
         String name = null;
-        if (googleMap != null) {
+        if (googleMap != null && waypointsList!=null && !waypointsList.isEmpty() && markersList!=null && !markersList.isEmpty()) {
 
             for (int i = 1; i < markersList.size(); i++) {
                 Log.d("Inside placing markers", "Inside markers");
@@ -306,23 +306,28 @@ public class PathGoogleMapActivity extends FragmentActivity implements OnMapRead
             JSONObject jObject;
             JSONArray waypoints, jroutes;
             List <List <HashMap <String, String>>> routes = null;
+            Log.d("wayppoints info",jsonData[0]);
 
             try {
                 jObject = new JSONObject(jsonData[0]);
-                jroutes = jObject.getJSONArray("routes");
-                Log.d("Routes here", String.valueOf(jroutes));
-                waypoints = ((JSONObject) jroutes.get(0)).getJSONArray("waypoint_order");
+                if(!jObject.has("error_message")) {
+                    jroutes = jObject.getJSONArray("routes");
+                    Log.d("Routes here", String.valueOf(jroutes));
+                    waypoints = ((JSONObject) jroutes.get(0)).getJSONArray("waypoint_order");
 
-                Log.d("Waypoints here", String.valueOf(waypoints));
-                if (waypoints != null) {
-                    int len = waypoints.length();
-                    for (int i = 0; i < len; i++) {
-                        waypointsList.add(Integer.parseInt(waypoints.get(i).toString()));
+                    Log.d("Waypoints here", String.valueOf(waypoints));
+                    if (waypoints != null) {
+                        int len = waypoints.length();
+                        for (int i = 0; i < len; i++) {
+                            waypointsList.add(Integer.parseInt(waypoints.get(i).toString()));
+                        }
                     }
+                    Log.d("Waypoint List is: ", "new list" + waypointsList.toString());
+                    PathJsonParser parser = new PathJsonParser();
+                    routes = parser.parse(jObject);
+                }else{
+                    Log.d("Routes here", "error from URL");
                 }
-                Log.d("Waypoint List is: ", "new list" + waypointsList.toString());
-                PathJsonParser parser = new PathJsonParser();
-                routes = parser.parse(jObject);
 
 
             } catch (Exception e) {
