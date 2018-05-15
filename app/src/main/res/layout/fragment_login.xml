@@ -30,7 +30,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:background="#86195A"
-            android:src="@drawable/arrowsmallwhite"
+            android:src="@drawable/arrowright"
             tools:ignore="ContentDescription" />
         <RelativeLayout
             android:id="@+id/loadingPanel"
