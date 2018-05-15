@@ -61,7 +61,7 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
 
                     attraction.setImageResource(R.drawable.attractions_button);
                     shopping.setImageResource(R.drawable.shopping_active);
-                    parks.setImageResource(R.drawable.parks_active);
+                    parks.setImageResource(R.drawable.favorites_active);
                     food.setImageResource(R.drawable.food_active);
                     attraction_txtView.setTextColor(Color.parseColor("#000000"));
                     shopping_txtView.setTextColor(Color.parseColor("#A9A9A9"));
@@ -72,7 +72,7 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
                 case "shopping":
                     attraction.setImageResource(R.drawable.attractions_active);
                     shopping.setImageResource(R.drawable.shopping_button);
-                    parks.setImageResource(R.drawable.parks_active);
+                    parks.setImageResource(R.drawable.favorites_active);
                     food.setImageResource(R.drawable.food_active);
                     attraction_txtView.setTextColor(Color.parseColor("#A9A9A9"));
                     shopping_txtView.setTextColor(Color.parseColor("#000000"));
@@ -84,7 +84,7 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
                 case "fun":
                     attraction.setImageResource(R.drawable.attractions_active);
                     shopping.setImageResource(R.drawable.shopping_active);
-                    parks.setImageResource(R.drawable.parks_button);
+                    parks.setImageResource(R.drawable.favorites_button);
                     food.setImageResource(R.drawable.food_active);
                     attraction_txtView.setTextColor(Color.parseColor("#A9A9A9"));
                     shopping_txtView.setTextColor(Color.parseColor("#A9A9A9"));
@@ -97,7 +97,7 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
                 case "food":
                     attraction.setImageResource(R.drawable.attractions_active);
                     shopping.setImageResource(R.drawable.shopping_active);
-                    parks.setImageResource(R.drawable.parks_active);
+                    parks.setImageResource(R.drawable.favorites_active);
                     food.setImageResource(R.drawable.food_button);
                     attraction_txtView.setTextColor(Color.parseColor("#A9A9A9"));
                     shopping_txtView.setTextColor(Color.parseColor("#A9A9A9"));

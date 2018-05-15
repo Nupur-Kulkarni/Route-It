@@ -113,8 +113,12 @@ public class FoursquareAPIClass implements AsyncResponse{
                     venueCategory.setName(categoriesDetailsObject.getString("name"));
                     venue.setVenueCategory(venueCategory);
 
-                    JSONObject photoDetailJson = singleresult.getJSONObject("photo");
-                    venue.setPhotoURL(photoDetailJson.get("prefix") + SIZE + photoDetailJson.get("suffix"));
+                    if (singleresult.has("photo")) {
+                        JSONObject photoDetailJson = singleresult.getJSONObject("photo");
+                        venue.setPhotoURL(photoDetailJson.get("prefix") + SIZE + photoDetailJson.get("suffix"));
+                    }
+
+
 
                     venues.add(venue);
 
