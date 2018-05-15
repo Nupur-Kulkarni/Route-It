@@ -205,17 +205,17 @@ public class PathGoogleMapActivity extends FragmentActivity implements OnMapRead
                 // Log.d("Plotwayorderpoints",String.valueOf(plotWaypointsOrder));
                 if (flag < count - 1) {
 
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(plotWaypointsOrder[flag], 25));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(plotWaypointsOrder[flag], 17));
                     if (waypointLocations.containsKey(plotWaypointsOrder[flag])) {
                         String name = waypointLocations.get(plotWaypointsOrder[flag]);
-                        tv.setText(name);
+                        tv.setText(flag+2+"."+name);
                     }
 
 
                     flag++;
                 } else if (flag == count - 1) {
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markersList.get(0), 25));
-                    tv.setText(startLocName);
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markersList.get(0), 17));
+                    tv.setText("1."+startLocName);
                     flag = 0;
                 }
                     /*else if(flag==count){
@@ -238,31 +238,31 @@ public class PathGoogleMapActivity extends FragmentActivity implements OnMapRead
                 if (flag > 0 && flag <= count) {
 
                     if (flag == 0) {
-                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markersList.get(0), 25));
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markersList.get(0), 17));
                         //tv.setText("Starting Point");
                         tv.setText(startLocName);
                         flag = count - 1;
 
                     } else {
                         flag--;
-                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(plotWaypointsOrder[flag], 25));
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(plotWaypointsOrder[flag], 17));
                         //tv.setText("Location " + (flag));
                         if (waypointLocations.containsKey(plotWaypointsOrder[flag])) {
                             String name = waypointLocations.get(plotWaypointsOrder[flag]);
-                            tv.setText(name);
+                            tv.setText(flag+2+"."+name);
                         }
 
 
                     }
                 } else if (flag == 0) {
                     flag = count - 1;
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markersList.get(0), 25));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markersList.get(0), 17));
                     //         tv.setText("Location "+(flag));
                     //if(waypointLocations.containsKey(plotWaypointsOrder[flag])){
                     //  String name=waypointLocations.get(plotWaypointsOrder[flag]);
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markersList.get(0), 25));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markersList.get(0), 17));
                     //tv.setText("Starting Point");
-                    tv.setText(startLocName);
+                    tv.setText("1."+startLocName);
                     //tv.setText(name);
 
 
