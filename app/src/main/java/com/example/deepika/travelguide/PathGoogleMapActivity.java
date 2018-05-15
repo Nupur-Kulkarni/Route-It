@@ -1,22 +1,31 @@
 package com.example.deepika.travelguide;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.deepika.travelguide.beans.FourSquareVenues;
+import com.example.deepika.travelguide.service.AsyncResponse;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -35,20 +44,21 @@ import org.json.JSONObject;
 
 public class PathGoogleMapActivity extends FragmentActivity implements OnMapReadyCallback,Serializable {
 
-    int flag=0;
+    int flag = 0;
     int count;
-    private static final LatLng ADELAIDE = new LatLng(-34.9284449,138.6005793);
-    private static final LatLng CLARE = new LatLng(-33.8414278,138.5768093);
-    private static final LatLng CONNAWARRA= new LatLng(-37.2898509,140.812181 );
-    private static final LatLng MCLAREN_VALE = new LatLng(-35.2052922, 138.4825192);
+
     MarkerOptions options;
     TextView tv;
-    Button buttonnext,buttonprev;
+    ImageButton buttonnext, buttonprev;
     GoogleMap googleMap;
     final String TAG = "PathGoogleMapActivity";
 
-    HashMap<String, HashSet<FourSquareVenues>> selectedPlcesMap = new HashMap<>();
-
+    HashMap <String, HashSet <FourSquareVenues>> selectedPlcesMap = new HashMap <>();
+    ArrayList <LatLng> markersList = new ArrayList <>();
+    ArrayList <Integer> waypointsList = new ArrayList <>();
+    HashMap <LatLng, String> waypointLocations = new HashMap <>();
+    LatLng[] plotWaypointsOrder = null;
+    String startLocName = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,53 +67,111 @@ public class PathGoogleMapActivity extends FragmentActivity implements OnMapRead
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        Typeface tf = Typeface.createFromAsset(getAssets(),
-                      "font/irmatextroundstdmedium.otf");
+        Typeface tf = Typeface.createFromAsset(getAssets(), "font/irmatextroundstdmedium.otf");
         tv = (TextView) findViewById(R.id.mytext2);
-              tv.setTypeface(tf);
-        buttonnext=(Button)findViewById(R.id.button2);
-        buttonprev=(Button)findViewById(R.id.button1);
+        tv.setTypeface(tf);
+        buttonnext = (ImageButton) findViewById(R.id.button2);
+        buttonprev = (ImageButton) findViewById(R.id.button1);
+        options = new MarkerOptions();
 
         Intent receivedIntent = getIntent();
-        //Bundle bundle = receivedIntent.getExtras();
-        selectedPlcesMap =(HashMap<String, HashSet<FourSquareVenues>>)receivedIntent.getSerializableExtra("map");
+        selectedPlcesMap = (HashMap <String, HashSet <FourSquareVenues>>) receivedIntent.getSerializableExtra("map");
+        Log.d("Hashmap Receieved: ", "Map values:" + String.valueOf(selectedPlcesMap));
+        Log.d("Hashmap Receieved: ", "map size: " + selectedPlcesMap.keySet().size());
+        if (!selectedPlcesMap.isEmpty()) {
+            if (selectedPlcesMap.containsKey("startLocation")) {
+                HashSet <FourSquareVenues> startLocSet = selectedPlcesMap.get("startLocation");
+                for (FourSquareVenues venue : startLocSet) {
+                    LatLng loc = new LatLng(venue.getLocation().getLat(), venue.getLocation().getLng());
+                    markersList.add(loc);
+                    Log.d("listsize after start", "is: " + markersList.size());
+                    waypointLocations.put(loc, venue.getName());
+                }
+            }
 
+            for (String key : selectedPlcesMap.keySet()) {
+                if (!key.equals("startLocation")) {
+                    HashSet <FourSquareVenues> placesSet = selectedPlcesMap.get(key);
+                    for (FourSquareVenues venue : placesSet) {
+                        Log.d("Inside add start loc", "is: ");
+                        LatLng loc = new LatLng(venue.getLocation().getLat(), venue.getLocation().getLng());
+                        markersList.add(loc);
+                        waypointLocations.put(loc, venue.getName());
+                    }
+                }
 
-        options = new MarkerOptions();
-        options.position(ADELAIDE);
-        options.position(CLARE);
-        options.position(CONNAWARRA);
-        options.position(MCLAREN_VALE);
+            }
+            plotWaypointsOrder = new LatLng[markersList.size() - 1];
+            Log.d("Marker List:  ", "value: " + String.valueOf(markersList));
+            Log.d("Size of Marker list: ", "Size: " + markersList.size());
+            Log.d("Waypoint List", "Value" + String.valueOf(waypointLocations));
 
+        } else {
+            Log.d("ikde", "bagh");
+        }
     }
+
     private String getMapsApiDirectionsUrl() {
-        String waypoints ="waypoints=optimize:true|"
-                + CLARE.latitude + "," + CLARE.longitude
-                + "|" + "|" + CONNAWARRA.latitude + ","
-                + CONNAWARRA.longitude + "|" + MCLAREN_VALE.latitude + ","
-                + MCLAREN_VALE.longitude;
-        String origin = "origin="+ADELAIDE.latitude+","+ADELAIDE.longitude;
-        String dest = "destination="+ADELAIDE.latitude+","+ADELAIDE.longitude;
-        String sensor = "sensor=false";
-         String params = origin + "&" +dest+"&"+waypoints + "&" + sensor;
-        String output = "json";
-         String url = "https://maps.googleapis.com/maps/api/directions/"
-               + output + "?" + params;
-        //String url = "http://maps.googleapis.com/maps/api/directions/json?origin=-34.9284449,138.6005793&destination=-34.9284449,138.6005793&waypoints=optimize:true|-33.8414278,138.5768093|-37.2898509,140.812181|-35.2052922,138.4825192&sensor=false";
+
+        StringBuilder sb = new StringBuilder();
+        StringBuilder waypoints = new StringBuilder();
+        String startPoint = String.valueOf(markersList.get(0).latitude) + "," + String.valueOf(markersList.get(0).longitude);
+        sb.append("http://maps.googleapis.com/maps/api/directions/json?origin=" + startPoint + "&" + "destination=" + startPoint);
+        waypoints.append("&waypoints=optimize:true");
+
+        for (int i = 1; i < markersList.size(); i++) {
+            Log.d("Value of i: ", "i is: " + i);
+            waypoints.append("|" + markersList.get(i).latitude + "," + markersList.get(i).longitude);
+
+        }
+        waypoints.append("&sensor=false");
+        String url = sb.toString() + waypoints.toString();
+        Log.d("Final URL is: ", "Here " + url);
         return url;
+
     }
 
     private void addMarkers() {
+
+        String name = null;
         if (googleMap != null) {
 
-            googleMap.addMarker(new MarkerOptions().position(CLARE));
+            for (int i = 1; i < markersList.size(); i++) {
+                Log.d("Inside placing markers", "Inside markers");
+                plotWaypointsOrder[waypointsList.get(i - 1)] = markersList.get(i);
+                //googleMap.addMarker(new MarkerOptions().position(markersList.get(i)));
+                Log.d("ikde :  ", "order: " + String.valueOf(plotWaypointsOrder));
+
+            }
+            for (int i = 0; i < markersList.size() - 1; i++) {
+                /*int marker=i+1;
+                String imageName = "pin1";
+                 int resID = getResources().getIdentifier(imageName, "drawable", getPackageName());
+
+                //Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.shopping_active);
+                //BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.pin1);*/
+                if (waypointLocations.containsKey(plotWaypointsOrder[i])) {
+                    name = waypointLocations.get(plotWaypointsOrder[i]);
+                }
+                Log.d("Waypoint Plotting", "here " + plotWaypointsOrder[i].toString());
+                googleMap.addMarker(new MarkerOptions().position(plotWaypointsOrder[i]).title(name));
+                //.icon(BitmapDescriptorFactory.fromResource(R.drawable.pin1_bitmap)));
+
+
+            }
+
+            /*Log.d("Waypoints in order: ","markerList: "+String.valueOf(markersList));
+            Log.d("Waypoints in order:  ","order: "+String.valueOf(plotWaypointsOrder));
+            Log.d("Waypoint in order ","hashmap"+String.valueOf(waypointLocations));*/
+            /*googleMap.addMarker(new MarkerOptions().position(CLARE));
             //       .title
             //                 ("First Point"));
             googleMap.addMarker(new MarkerOptions().position(CONNAWARRA));
             //.title("Second Point"));
             googleMap.addMarker(new MarkerOptions().position(MCLAREN_VALE));
-            // .title("Third Point"));
+            // .title("Third Point"));*/
         }
+
     }
 
     @Override
@@ -112,75 +180,105 @@ public class PathGoogleMapActivity extends FragmentActivity implements OnMapRead
 
         // Add a marker in Sydney and move the camera
 
-        googleMap.addMarker(options);
+        //googleMap.addMarker(options);
         String url = getMapsApiDirectionsUrl();
         ReadTask downloadTask = new ReadTask();
         downloadTask.execute(url);
-        googleMap.addMarker(new MarkerOptions().position(ADELAIDE));
 
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ADELAIDE,
-                13));
-        addMarkers();
+        //starting location
+        if (waypointLocations.containsKey(markersList.get(0))) {
+            startLocName = waypointLocations.get(markersList.get(0));
+        }
+        googleMap.addMarker(new MarkerOptions().position(markersList.get(0)).title(startLocName)).showInfoWindow();
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markersList.get(0), 13));
 
-        final ArrayList<LatLng> Locname=new ArrayList <LatLng>();
-        Locname.add(ADELAIDE);
-        Locname.add(CLARE);
-        Locname.add(CONNAWARRA);
-        Locname.add(MCLAREN_VALE);
-        count=Locname.size();
+        count = markersList.size();
 
-        tv.setText("Starting Point");
-      //   buttonnext.setEnabled(true);
-            buttonnext.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        tv.setText(startLocName);
 
-                    Log.d("Flag is: ","Flag " +flag);
-                    if(flag<count-1){
-                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Locname.get(flag+1), 13));
-                        tv.setText("Location "+(flag+1));
-                        flag++;
+        buttonnext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //buttonnext.setVisibility(View.VISIBLE);
+                Log.d("Flag is: ", "Flag " + flag);
+                // Log.d("Plotwayorderpoints",String.valueOf(plotWaypointsOrder));
+                if (flag < count - 1) {
+
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(plotWaypointsOrder[flag], 17));
+                    if (waypointLocations.containsKey(plotWaypointsOrder[flag])) {
+                        String name = waypointLocations.get(plotWaypointsOrder[flag]);
+                        tv.setText(flag+2+"."+name);
                     }
-                    else if(flag==count-1){
-                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Locname.get(0), 13));
-                        tv.setText("Location 0");
-                        flag++;
-                    }
-                    else if(flag>=count){
+
+
+                    flag++;
+                } else if (flag == count - 1) {
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markersList.get(0), 17));
+                    tv.setText("1."+startLocName);
+                    flag = 0;
+                }
+                    /*else if(flag==count){
          //               buttonnext.setEnabled(false);
-           //             buttonnext.setVisibility(View.INVISIBLE);
+//                      buttonnext.setVisibility(View.INVISIBLE);
                         flag=0;
                     }
+*/
+            }
 
-                }
+        });
 
-            });
 
-    //    buttonprev.setEnabled(true);
         buttonprev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 //buttonprev.setVisibility(View.INVISIBLE);
-                Log.d("Flag count is: ","Flag " +flag);
-                if(flag>0 && flag<=count){
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Locname.get(flag-1), 13));
-                    tv.setText("Location "+(flag-1));
-                    flag--;
+                Log.d("Prev Flag count is: ", "Flag " + flag + " count " + count);
+                if (flag > 0 && flag <= count) {
+
+                    if (flag == 0) {
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markersList.get(0), 17));
+                        //tv.setText("Starting Point");
+                        tv.setText(startLocName);
+                        flag = count - 1;
+
+                    } else {
+                        flag--;
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(plotWaypointsOrder[flag], 17));
+                        //tv.setText("Location " + (flag));
+                        if (waypointLocations.containsKey(plotWaypointsOrder[flag])) {
+                            String name = waypointLocations.get(plotWaypointsOrder[flag]);
+                            tv.setText(flag+2+"."+name);
+                        }
+
+
+                    }
+                } else if (flag == 0) {
+                    flag = count - 1;
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markersList.get(0), 17));
+                    //         tv.setText("Location "+(flag));
+                    //if(waypointLocations.containsKey(plotWaypointsOrder[flag])){
+                    //  String name=waypointLocations.get(plotWaypointsOrder[flag]);
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markersList.get(0), 17));
+                    //tv.setText("Starting Point");
+                    tv.setText("1."+startLocName);
+                    //tv.setText(name);
+
+
+                } else if (flag < 0) {
+////                    buttonprev.setEnabled(false);
+////                    buttonprev.setVisibility(View.INVISIBLE);
+                    flag = count;
                 }
 
-                else if(flag==0){
-      //              buttonprev.setEnabled(false);
-       //             buttonprev.setVisibility(View.INVISIBLE);
-                    flag=count;
-                }
 
             }
 
         });
     }
 
-    private class ReadTask extends AsyncTask<String, Void, String> {
+    private class ReadTask extends AsyncTask <String, Void, String> {
         @Override
         protected String doInBackground(String... url) {
             String data = "";
@@ -200,24 +298,29 @@ public class PathGoogleMapActivity extends FragmentActivity implements OnMapRead
         }
     }
 
-    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String, String>>>> {
+    private class ParserTask extends AsyncTask <String, Integer, List <List <HashMap <String, String>>>> {
 
         @Override
-        protected List<List<HashMap<String, String>>> doInBackground(
-                String... jsonData) {
+        protected List <List <HashMap <String, String>>> doInBackground(String... jsonData) {
 
             JSONObject jObject;
-            JSONArray waypoints,jroutes;
-            List<List<HashMap<String, String>>> routes = null;
+            JSONArray waypoints, jroutes;
+            List <List <HashMap <String, String>>> routes = null;
 
             try {
                 jObject = new JSONObject(jsonData[0]);
                 jroutes = jObject.getJSONArray("routes");
-                Log.d("Routes here",String.valueOf(jroutes));
+                Log.d("Routes here", String.valueOf(jroutes));
                 waypoints = ((JSONObject) jroutes.get(0)).getJSONArray("waypoint_order");
 
-                Log.d("Waypoints here",String.valueOf(waypoints));
-
+                Log.d("Waypoints here", String.valueOf(waypoints));
+                if (waypoints != null) {
+                    int len = waypoints.length();
+                    for (int i = 0; i < len; i++) {
+                        waypointsList.add(Integer.parseInt(waypoints.get(i).toString()));
+                    }
+                }
+                Log.d("Waypoint List is: ", "new list" + waypointsList.toString());
                 PathJsonParser parser = new PathJsonParser();
                 routes = parser.parse(jObject);
 
@@ -229,35 +332,44 @@ public class PathGoogleMapActivity extends FragmentActivity implements OnMapRead
         }
 
         @Override
-        protected void onPostExecute(List<List<HashMap<String, String>>> routes) {
-            ArrayList<LatLng> points = null;
+        protected void onPostExecute(List <List <HashMap <String, String>>> routes) {
+            ArrayList <LatLng> points = null;
             PolylineOptions polyLineOptions = null;
 
-            // traversing through routes
-            for (int i = 0; i < routes.size(); i++) {
-                points = new ArrayList<LatLng>();
-                polyLineOptions = new PolylineOptions();
-                List<HashMap<String, String>> path = routes.get(i);
+            addMarkers();
 
-                for (int j = 0; j < path.size(); j++) {
-                    HashMap<String, String> point = path.get(j);
+            if (routes!=null && !routes.isEmpty()) {
+                // traversing through routes
+                for (int i = 0; i < routes.size(); i++) {
+                    points = new ArrayList <LatLng>();
+                    polyLineOptions = new PolylineOptions();
+                    List <HashMap <String, String>> path = routes.get(i);
 
-                    double lat = Double.parseDouble(point.get("lat"));
-                    double lng = Double.parseDouble(point.get("lng"));
-                    LatLng position = new LatLng(lat, lng);
+                    for (int j = 0; j < path.size(); j++) {
+                        HashMap <String, String> point = path.get(j);
 
-                    points.add(position);
+                        double lat = Double.parseDouble(point.get("lat"));
+                        double lng = Double.parseDouble(point.get("lng"));
+                        LatLng position = new LatLng(lat, lng);
+
+                        points.add(position);
+                    }
+
+                    polyLineOptions.addAll(points);
+                    polyLineOptions.width(10);
+                    polyLineOptions.color(Color.BLACK);
                 }
 
-                polyLineOptions.addAll(points);
-                polyLineOptions.width(10);
-                polyLineOptions.color(Color.BLACK);
+                googleMap.addPolyline(polyLineOptions);
+            }
+            else
+            {
+                Toast.makeText(getApplicationContext(),"Select places",Toast.LENGTH_SHORT);
             }
 
-            googleMap.addPolyline(polyLineOptions);
+
         }
+
+
     }
-
-
-
 }
