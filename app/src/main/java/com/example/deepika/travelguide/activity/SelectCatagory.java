@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -40,13 +41,13 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
     String category = null;
     Button mymapbutton;
     TextView attraction_txtView,shopping_txtView,food_txtView,parks_textView;
-    HashSet<FourSquareVenues> map = new HashSet<>();
+    HashMap<String, HashSet<FourSquareVenues>> map = new HashMap<>();
     Handler handler = new Handler();
     FoursquareAPIClass foursquareActivity=null, foursquareActivity1=null;
     private FourSquareVenues startLocation=null;
     String selectedCity="";
     private String[] arr;
-
+    int size=0;
     public class  M2Update implements Runnable {
         private String category;
         public M2Update(String category1) {
@@ -113,12 +114,12 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
     }
 
 
-    @Override
+        @Override
     public void getResponse(ArrayList<FourSquareVenues> venues) {
         Bundle bn=new Bundle();
         bn.putSerializable("Places",venues);
-        //HashSet<FourSquareVenues> set = map.get(category);
-        PlaceDisplayFragment fragment = new PlaceDisplayFragment(category,SelectCatagory.this,map);
+        HashSet<FourSquareVenues> set = map.get(category);
+        PlaceDisplayFragment fragment = new PlaceDisplayFragment(category,SelectCatagory.this,set);
         fragment.setArguments(bn);
         FragmentManager fragmentManager = getSupportFragmentManager();
         if(fragmentManager!=null)
@@ -130,30 +131,43 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
         }
     }
 
+
     @Override
     public void getData(FourSquareVenues place, boolean checked) {
-        //HashSet<FourSquareVenues> set = new HashSet<>();
+        HashSet<FourSquareVenues> set = new HashSet<>();
+        int sum=0;
         if(checked) {
+            for(Set<FourSquareVenues> sets :map.values()){
+                sum+=sets.size();
+            }
+            if(sum==8){
+                Toast.makeText(getApplicationContext(),"You have reached the limit. To select a place further, please remove an already selected place first", Toast.LENGTH_SHORT).show();
+            }
+            else if(sum>8){
+                return;
+            }
+
             Log.d("Place", String.valueOf(place));
 
             Log.d("category", String.valueOf(category));
-                if(map.size()>8){
-                    Toast.makeText(getApplicationContext(),"No more than 8 places can be selected. If you want to add this place, please remove any other place and try again",Toast.LENGTH_LONG).show();
-                }
-                else {
-                    if (map.contains(place)) {
-                        Log.d("set", "object in set");
-                    } else {
+            if (map.containsKey(category)) {
+                set = map.get(category);
+                if (set.contains(place)) {
+                    Log.d("set", "object in set");
+                } else {
 
-                        map.add(place);
-                        //map.put(category, set);
-                        Log.d("set contains", String.valueOf(map));
-                    }
+                    set.add(place);
+                    map.put(category, set);
+                    Log.d("set contains 12", String.valueOf(set));
                 }
+            } else {
+                set.add(place);
+                map.put(category, set);
+                Log.d("set contains", String.valueOf(set));
             }
-
+        }
         else{
-            map.remove(place);
+            map.get(category).remove(place);
             Log.d("remove","place removed from set");
         }
         Log.d("hashmap", String.valueOf(map));
@@ -177,7 +191,7 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
 
         HashSet<FourSquareVenues> set=new HashSet<>();
         set.add(startLocation);
-        //map.put("startLocation",set);
+        map.put("startLocation",set);
         Log.d("city in cateory",selectedCity+" startlocation "+startLocation);
         Typeface tf = Typeface.createFromAsset(getAssets(),
                 "font/irmatextroundstdmedium.otf");
@@ -269,7 +283,7 @@ public class SelectCatagory extends AppCompatActivity  implements View.OnClickLi
             case R.id.myMapbutton:
                 Intent intent1 = new Intent(getApplicationContext(),PathGoogleMapActivity.class);
                 intent1.putExtra("map", (Serializable) map);
-                intent1.putExtra("startLocation",selectedCity);
+                //intent1.putExtra("startLocation",selectedCity);
                 startActivity(intent1);
                 break;
 
